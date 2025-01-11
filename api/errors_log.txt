@@ -1,0 +1,89 @@
+[02-Jan-2025 09:58:22 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function json_decod() in C:\xampp\htdocs\my_shop\api\sign_up.php:10
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\sign_up.php on line 10
+[02-Jan-2025 09:59:00 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\my_shop\controls\connection.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[02-Jan-2025 09:59:00 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../controls/connection.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\my_shop\api\config.php:5
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\sign_up.php(3): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[02-Jan-2025 09:59:27 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\my_shop\controls\connection.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[02-Jan-2025 09:59:27 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../controls/connection.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\my_shop\api\config.php:5
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\sign_up.php(3): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[02-Jan-2025 11:11:39 Europe/Berlin] PHP Notice:  Only variables should be passed by reference in C:\xampp\htdocs\my_shop\api\sign_up.php on line 39
+[07-Jan-2025 07:51:27 Europe/Berlin] PHP Fatal error:  Uncaught Error: Undefined constant "console" in C:\xampp\htdocs\my_shop\controls\connection.php:11
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\config.php(5): require_once()
+#1 C:\xampp\htdocs\my_shop\api\sign_up.php(3): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\my_shop\controls\connection.php on line 11
+[07-Jan-2025 07:54:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Undefined constant "console" in C:\xampp\htdocs\my_shop\controls\connection.php:11
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\config.php(5): require_once()
+#1 C:\xampp\htdocs\my_shop\api\sign_up.php(3): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\my_shop\controls\connection.php on line 11
+[07-Jan-2025 07:57:21 Europe/Berlin] PHP Fatal error:  Uncaught Error: Undefined constant "console" in C:\xampp\htdocs\my_shop\controls\connection.php:11
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\config.php(5): require_once()
+#1 C:\xampp\htdocs\my_shop\api\sign_up.php(3): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\my_shop\controls\connection.php on line 11
+[07-Jan-2025 07:57:26 Europe/Berlin] PHP Fatal error:  Uncaught Error: Undefined constant "console" in C:\xampp\htdocs\my_shop\controls\connection.php:11
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\config.php(5): require_once()
+#1 C:\xampp\htdocs\my_shop\api\sign_up.php(3): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\my_shop\controls\connection.php on line 11
+[07-Jan-2025 08:18:55 Europe/Berlin] PHP Fatal error:  Cannot redeclare print_response() (previously declared in C:\xampp\htdocs\my_shop\api\sign_up.php:88) in C:\xampp\htdocs\my_shop\controls\api_response.php on line 27
+[07-Jan-2025 12:30:47 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 27
+[07-Jan-2025 12:30:47 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 27
+[07-Jan-2025 12:30:47 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 28
+[07-Jan-2025 12:30:47 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 28
+[07-Jan-2025 12:30:47 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 29
+[07-Jan-2025 12:30:47 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 29
+[07-Jan-2025 12:30:47 Europe/Berlin] PHP Warning:  Undefined variable $email in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 30
+[07-Jan-2025 12:31:31 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 27
+[07-Jan-2025 12:31:31 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 27
+[07-Jan-2025 12:31:35 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 27
+[07-Jan-2025 12:31:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 27
+[07-Jan-2025 12:31:38 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 27
+[07-Jan-2025 12:31:38 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\set_user_session.php on line 27
+[07-Jan-2025 12:53:02 Europe/Berlin] PHP Fatal error:  Cannot redeclare print_response() (previously declared in C:\xampp\htdocs\my_shop\api\update_user_data.php:7) in C:\xampp\htdocs\my_shop\controls\api_response.php on line 26
+[07-Jan-2025 13:26:45 Europe/Berlin] User ID: 10
+[07-Jan-2025 13:28:34 Europe/Berlin] User ID: 10
+[07-Jan-2025 15:00:57 Europe/Berlin] User ID: 19
+[08-Jan-2025 12:59:08 Europe/Berlin] User ID: 19
+[08-Jan-2025 13:10:07 Europe/Berlin] User ID: 19
+[08-Jan-2025 13:22:07 Europe/Berlin] User ID: 22
+[08-Jan-2025 13:54:29 Europe/Berlin] User ID: 22
+[09-Jan-2025 17:45:59 Europe/Berlin] Received ID: 24
+[09-Jan-2025 17:49:21 Europe/Berlin] Received ID: 24
+[09-Jan-2025 17:54:28 Europe/Berlin] Received ID: 24
+[09-Jan-2025 17:57:32 Europe/Berlin] Received ID: 24
+[09-Jan-2025 17:58:17 Europe/Berlin] Received ID: 24
+[09-Jan-2025 17:59:41 Europe/Berlin] Received ID: 24
+[09-Jan-2025 17:59:44 Europe/Berlin] User ID: 
+[09-Jan-2025 18:02:26 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:02:30 Europe/Berlin] User ID: 
+[09-Jan-2025 18:03:24 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:03:28 Europe/Berlin] User ID: 
+[09-Jan-2025 18:06:04 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:06:07 Europe/Berlin] User ID: 24
+[09-Jan-2025 18:06:53 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:07:21 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:07:53 Europe/Berlin] Received ID: 29
+[09-Jan-2025 18:08:16 Europe/Berlin] User ID: 29
+[09-Jan-2025 18:08:39 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:09:57 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:10:14 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:10:43 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:11:57 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:12:05 Europe/Berlin] Received ID: 24
+[09-Jan-2025 18:12:13 Europe/Berlin] User ID: 24
+[09-Jan-2025 18:20:14 Europe/Berlin] Received ID: 30
+[09-Jan-2025 18:20:24 Europe/Berlin] User ID: 30
