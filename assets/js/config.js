@@ -1,3 +1,4 @@
-import { callApi } from "./callAPIS.js";
+// config.js
+import { callApi, logMessage ,showUserMessage } from './callAPIS.js';
 
-export { callApi };
+export { callApi, logMessage ,showUserMessage};

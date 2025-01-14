@@ -125,3 +125,204 @@ button:hover {
 .btn:hover {
     background-color: #0056b3;
 }
+
+/* Toast Message Styles Start */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInOut 5s ease;
+}
+
+.toast-success {
+    background-color: #28a745;
+}
+
+.toast-danger {
+    background-color: #dc3545;
+}
+
+.toast-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.toast-info {
+    background-color: #17a2b8;
+}
+
+.toast .toast-progress {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    animation: progressBar 5s linear;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    10%,
+    90% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@keyframes progressBar {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0;
+    }
+}
+
+/* Toast Message Styles End */
+
+/* CSS Styles */
+#user-message-box {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    color: #fff;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 16px;
+    min-width: 300px;
+    max-width: 80vw;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(8px);
+}
+
+/* Position variants */
+#user-message-box.top {
+    top: -100px;
+}
+
+#user-message-box.bottom {
+    bottom: -100px;
+}
+
+#user-message-box.visible.top {
+    top: 24px;
+    opacity: 1;
+}
+
+#user-message-box.visible.bottom {
+    bottom: 24px;
+    opacity: 1;
+}
+
+/* Enhanced colors with gradients */
+#user-message-box.success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-left: 4px solid #1e7e34;
+}
+
+#user-message-box.error {
+    background: linear-gradient(135deg, #dc3545, #ff4d4d);
+    border-left: 4px solid #bd2130;
+}
+
+#user-message-box.warning {
+    background: linear-gradient(135deg, #ffc107, #ffb700);
+    border-left: 4px solid #d39e00;
+    color: #000;
+}
+
+#user-message-box.info {
+    background: linear-gradient(135deg, #007bff, #17a2b8);
+    border-left: 4px solid #0056b3;
+}
+
+/* Content layout */
+.message-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-right: 24px;
+}
+
+.message-text {
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Icon styles */
+.material-symbols-rounded {
+    font-size: 24px;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.close-btn .material-symbols-rounded {
+    font-size: 20px;
+}
+
+/* Progress bar */
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hover effect */
+#user-message-box:hover .progress-bar::after {
+    opacity: 0.8;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    #user-message-box {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+}

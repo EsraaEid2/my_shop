@@ -1,29 +1,147 @@
 // Dynamic base URL for API (switches between development and production)
 const is_live = false; // Set to `true` for production
-const base_url = is_live ? "https://my-shop.com" : "http://localhost/my_shop";
+const base_url = is_live ? "https://my-shop.com" : "http://localhost/my_shop/api";
 
 // API configurations
 const apis = {
-    login: { url: "/api/login.php", method: "POST" },
-    profile: { url: "/api/get_user_data.php", method: "GET" },
-    edit_profile: {url: "/api/update_user_data.php", method: "POST"},
-    logout: { url: "/api/destroy_user_session.php", method: "GET" },
-    sign_up: { url: "/api/sign_up.php", method: "POST" },
-    set_user_session: { url: "/api/set_user_session.php", method: "POST" },
-    get_user_session: { url: "/api/get_user_session.php", method: "GET" },
+    "login": { 
+        "url": `${base_url}/login.php`, 
+        "method": "POST" 
+    },
+    "profile": { 
+        "url": `${base_url}/get_user_data.php`, 
+        "method": "GET" 
+    },
+    "editProfile": {
+        "url": `${base_url}/update_user_data.php`, 
+        "method": "POST"
+    },
+    "logout": { 
+        "url": `${base_url}/destroy_user_session.php`, 
+        "method": "GET" 
+    },
+    "signUp": { 
+        "url": `${base_url}/sign_up.php`, 
+        "method": "POST" 
+    },
+    "setUserSession": { 
+        "url": `${base_url}/set_user_session.php`,
+         "method": "POST" 
+        },
+    "getUserSession": { 
+        "url": `${base_url}/get_user_session.php`, 
+        "method": "GET" 
+    },
 };
+
+/* Custom logging Function
+ logs messages during development
+*/
+function logMessage(message, level = "info") {
+    const timestamp = new Date().toISOString();
+    switch (level.toLowerCase()) {
+        case "info":
+            console.info(`[INFO] [${timestamp}] ${message}`);
+            break;
+        case "warn":
+            console.warn(`[WARN] [${timestamp}] ${message}`);
+            break;
+        case "error":
+            console.error(`[ERROR] [${timestamp}] ${message}`);
+            break;
+        default:
+            console.log(`[LOG] [${timestamp}] ${message}`);
+            break;
+    }
+}
+
+// Define icons for each message type using more modern Material Symbols
+const icons = {
+    success: '<span class="material-symbols-rounded">check_circle</span>',
+    error: '<span class="material-symbols-rounded">error</span>',
+    warning: '<span class="material-symbols-rounded">warning</span>',
+    info: '<span class="material-symbols-rounded">info</span>',
+};
+
+/**
+ * Displays a user message as a toast notification
+ * @param {string} message - The message to display
+ * @param {string} type - Message type ("success", "error", "warning", "info")
+ * @param {Object} customOptions - Custom options for the toast
+ */
+function showUserMessage(message, type = "info", customOptions = {}) {
+    const defaultOptions = {
+        duration: 3000,
+        position: 'top', // 'top' or 'bottom'
+        dismissible: true, // Allow manual dismissal
+    };
+
+    const options = { ...defaultOptions, ...customOptions };
+
+    // Validate type
+    if (!Object.keys(icons).includes(type)) type = "info";
+
+    // Remove existing message box
+    const existingBox = document.getElementById("user-message-box");
+    if (existingBox) existingBox.remove();
+
+    // Create message box
+    const messageBox = document.createElement("div");
+    messageBox.id = "user-message-box";
+    messageBox.className = `user-message ${type} ${options.position}`;
+    
+    // Add close button if dismissible
+    const closeButton = options.dismissible ? 
+        '<button class="close-btn" onclick="this.parentElement.remove();">' +
+        '<span class="material-symbols-rounded">close</span></button>' : '';
+
+    messageBox.innerHTML = `
+        <div class="message-content">
+            ${icons[type]}
+            <span class="message-text">${message}</span>
+        </div>
+        ${closeButton}`;
+
+    // Add progress bar for auto-dismiss
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar";
+    messageBox.appendChild(progressBar);
+
+    // Append to body
+    document.body.appendChild(messageBox);
+
+    // Show message with animation
+    requestAnimationFrame(() => {
+        messageBox.classList.add("visible");
+        progressBar.style.transition = `width ${options.duration}ms linear`;
+        progressBar.style.width = "0%";
+    });
+
+    // Auto-dismiss after duration
+    const timeout = setTimeout(() => {
+        messageBox.classList.remove("visible");
+        setTimeout(() => messageBox.remove(), 500);
+    }, options.duration);
+
+    // Clear timeout if manually dismissed
+    if (options.dismissible) {
+        messageBox.querySelector('.close-btn').addEventListener('click', () => {
+            clearTimeout(timeout);
+        });
+    }
+}
 
 // Function to make an API call
 async function callApi(apiName, data = null) {
     // Validate API configuration
     if (!apis[apiName]) {
-        Swal.fire('Error', `API '${apiName}' not found.`, 'error');
-        console.error(`API '${apiName}' not configured.`);
+        logMessage(`API '${apiName}' not found.`, "error");
+        showUserMessage(`Error: API '${apiName}' not found.`, "error");
         return null;
     }
 
     const { url, method } = apis[apiName];
-    let apiUrl = `${base_url}${url}`;
+    let apiUrl = url;
 
     // Append query parameters for GET requests
     if (method === "GET" && data) {
@@ -48,22 +166,24 @@ async function callApi(apiName, data = null) {
         const response = await fetch(apiUrl, options);
         const rawText = await response.text(); // Fetch raw text response for debugging
 
-        console.log("Raw Response:", rawText);
+        logMessage(`Raw Response from '${apiName}': ${rawText}`);
 
         // Parse rawText as JSON
         const jsonData = JSON.parse(rawText);
 
         if (response.ok) {
+            showUserMessage(`API '${apiName}' executed successfully.`, "success");
             return jsonData; // Return the JSON data on success
         } else {
-            Swal.fire('Error', jsonData.message || 'An error occurred.', 'error');
+            logMessage(`Error in API '${apiName}': ${jsonData.message || 'Unknown error'}`, "error");
+            showUserMessage(jsonData.message || 'An error occurred.', "error");
             return null;
         }
     } catch (error) {
-        Swal.fire('Error', 'Network issue or API is unavailable.', 'error');
-        console.error(`Network/API Error for '${apiName}':`, error);
+        logMessage(`Network/API Error for '${apiName}': ${error}`, "error");
+        showUserMessage('Network issue or API is unavailable.', "error");
         return null;
     }
 }
 
-export { callApi };
+export { callApi, logMessage, showUserMessage };

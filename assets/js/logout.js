@@ -1,4 +1,5 @@
-import { callApi } from './config.js';
+// Import the necessary functions
+import { logMessage, callApi, showUserMessage } from './config.js';
 
 const logoutBtn = document.getElementById('logout-btn');
 
@@ -10,18 +11,19 @@ if (logoutBtn) {
         try {
             const logoutResponse = await callApi('logout');
             if (logoutResponse.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Logged Out',
-                    text: 'You have been logged out successfully.',
+                showUserMessage('success', 'Logged Out', 'You have been logged out successfully.', {
+                    toast: true,
+                    position: 'bottom-end',
+                    timer: 3000,
+                    timerProgressBar: true
                 }).then(() => {
                     window.location.href = '/my_shop/login.php';
                 });
             } else {
-                Swal.fire('Error', logoutResponse.message, 'error');
+                showUserMessage('error', 'Error', logoutResponse.message);
             }
         } catch (error) {
-            Swal.fire('Error', `An error occurred: ${error.message}`, 'error');
+            showUserMessage('error', 'Error', `An error occurred: ${error.message}`);
         }
     });
 }

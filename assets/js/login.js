@@ -1,53 +1,57 @@
-// Import the callApi function
-import { callApi } from './config.js';
+// Import the necessary functions
+import { logMessage, callApi, showUserMessage } from './config.js';
 
 // Get references to the form
 const form = document.getElementById('LoginForm');
 
 // Add a submit event listener to the form
 form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault();
 
-    // Collect form data
     const formData = {
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value,
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value.trim(),
     };
 
+    // Basic validation
+    if (!formData.email || !formData.password) {
+        showUserMessage('Email and Password are required!', 'warning');
+        return;
+    }
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Logging in...';
+
     try {
-        // Call the login API using callApi function
+        // Call the login API
         const loginResponse = await callApi('login', formData);
 
-        // Display response from login API in SweetAlert
         if (loginResponse.success) {
-            const data = loginResponse.data;
+            const { id } = loginResponse.data;
+            showUserMessage('Login successful! Redirecting...', 'success');
 
-            // Call the set_user_session API to set the session
-            const sessionBody = { id: data.id };
-            const sessionResponse = await callApi('set_user_session', sessionBody);
+            // Set the user session
+            const sessionResponse = await callApi('setUserSession', { id });
 
-            // Handle session response
-            if (sessionResponse.success) {
-                // Success message
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login Successful',
-                    text: sessionResponse.message,
-                }).then(() => {
-                    // Redirect to profile page
+            if (sessionResponse && sessionResponse.success) {
+                // Redirect to the user profile page after a slight delay
+                setTimeout(() => {
                     window.location.href = '/my_shop/profile.php';
-                });
+                }, 2000);
             } else {
-                // Handle session setting failure
-                Swal.fire('Error', sessionResponse.message, 'error');
+                showUserMessage('Failed to set session. Please try again.', 'error');
             }
         } else {
-            // Handle login failure
-            Swal.fire('Error', loginResponse.message, 'error');
+            // Invalid credentials or any other failure in the login process
+            showUserMessage(loginResponse.message || 'Invalid credentials.', 'error');
         }
     } catch (error) {
-        // Handle API errors
-        console.log(error);
-        Swal.fire('Error', `An error occurred: ${error.message}`, 'error');
+        console.error('Login error:', error);
+        showUserMessage('An error occurred. Please try again later.', 'error');
+    } finally {
+        // Enable the submit button and reset the text
+        submitButton.disabled = false;
+        submitButton.textContent = 'Login';
     }
 });
