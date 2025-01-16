@@ -1,126 +1,144 @@
-// Import the necessary functions
 import { logMessage, callApi, showUserMessage } from './config.js';
 
-let userId = null; // We'll fetch the user ID from the session data
+document.addEventListener('DOMContentLoaded', () => {
+    const profileImageInput = document.getElementById('profileImageInput');
+    const saveImageBtn = document.getElementById('saveImageBtn');
+    const editImageIcon = document.getElementById('editImageIcon');
+    const editProfileForm = document.getElementById('editProfileForm');
+    const tabs = document.querySelectorAll('.nav-link');
+    let userId = null;
 
-// DOM Elements
-const profileDiv = document.getElementById('profile');
-const editProfileDiv = document.getElementById('editProfileForm');
-const editProfileBtn = document.getElementById('editProfileBtn');
-const saveProfileBtn = document.getElementById('saveProfileBtn');
+    // Initialize Bootstrap tabs
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            const bootstrapTabHandler = new bootstrap.Tab(this);
+            bootstrapTabHandler.show();
+        });
+    });
 
-const firstNameElem = document.getElementById('first_name');
-const lastNameElem = document.getElementById('last_name');
-const emailElem = document.getElementById('email');
+    const editFirstNameElem = document.getElementById('edit_first_name');
+    const editLastNameElem = document.getElementById('edit_last_name');
+    const editEmailElem = document.getElementById('edit_email');
+    const userImage = document.getElementById('userImage');
 
-// Edit fields
-const editFirstNameElem = document.getElementById('edit_first_name');
-const editLastNameElem = document.getElementById('edit_last_name');
-const editEmailElem = document.getElementById('edit_email');
+    editImageIcon.addEventListener('click', () => profileImageInput.click());
 
-// Fetch user session and data on page load
-window.addEventListener('load', async () => {
-    try {
-        // Call the get user session API using callApi function
-        const sessionResponse = await callApi('getUserSession', null);
-        if (sessionResponse) {
-            console.log('Session API Response:', sessionResponse);
-            const sessionResult = sessionResponse;
-
-            if (sessionResult.success) {
-                // Get user ID from the session
-                userId = sessionResult.data.user_id;
-                console.log(`User ID from session: ${userId}`);
-
-                // Fetch user data using userId
-                const profileResponse = await callApi('profile', { id: userId });
-
-                const profileResult = profileResponse;
-                console.log(profileResult);
-
-                if (profileResult.success) {
-                    const user = profileResult.data;
-
-                    // Populate profile fields
-                    firstNameElem.textContent = user.first_name || "N/A";
-                    lastNameElem.textContent = user.last_name || "N/A";
-                    emailElem.textContent = user.email || "N/A";
-                } else {
-                    showUserMessage('error', 'Error', profileResult.message);
-                }
-            } else {
-                showUserMessage('error', 'Error', sessionResult.message);
-                window.location.href = '/login.php'; // Redirect to login
-            }
+    profileImageInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                userImage.src = e.target.result;
+                saveImageBtn.classList.remove('d-none');
+            };
+            reader.readAsDataURL(file);
         }
-    } catch (error) {
-        console.error('Error fetching profile or session:', error);
-        showUserMessage('error', 'Error', 'Error fetching profile or session. Please try again.');
-    }
-});
+    });
 
-// Edit profile button functionality
-editProfileBtn.addEventListener('click', () => {
-    // Show edit form and hide profile details
-    profileDiv.style.display = 'none';
-    editProfileDiv.style.display = 'block';
+    saveImageBtn.addEventListener('click', async () => {
+        const fileInput = profileImageInput.files[0];
+        if (await handleFileUpload(fileInput)) {
+            saveImageBtn.classList.add('d-none');
+        }
+    });
 
-    // Prefill the edit form with current data
-    editFirstNameElem.value = firstNameElem.textContent.trim();
-    editLastNameElem.value = lastNameElem.textContent.trim();
-    editEmailElem.value = emailElem.textContent.trim();
-});
+    const handleFileUpload = async (fileInput) => {
+        if (!fileInput) {
+            showUserMessage( 'No Image Selected ,Please select an image to upload!','error');
+            return false;
+        }
 
-// Save the changes to the profile
-saveProfileBtn.addEventListener('click', async () => {
-    if (!userId) {
-        showUserMessage('error', 'Error', 'User session is invalid. Please log in again.');
-        return;
-    }
-    const updatedData = {
-        first_name: editFirstNameElem.value.trim(),
-        last_name: editLastNameElem.value.trim(),
-        email: editEmailElem.value.trim()
+        const allowedExtensions = ['image/jpeg', 'image/png'];
+        const maxSize = 2 * 1024 * 1024;
+
+        if (!allowedExtensions.includes(fileInput.type)) {
+            showUserMessage('Invalid Image Format, Allowed formats: JPEG, PNG.','error');
+            return false;
+        }
+
+        if (fileInput.size > maxSize) {
+            showUserMessage('File Too Large, Maximum allowed size is 2MB.','error');
+            return false;
+        }
+
+        const formData = new FormData();
+        formData.append('profile_image', fileInput);
+
+        try {
+            const response = await callApi('uploadProfileImage', formData);
+            if (response.success) {
+                showUserMessage('Your profile image has been updated successfully.','success');
+                return true;
+            } else {
+                showUserMessage(response.message || 'An error occurred during upload.','error');
+                return false;
+            }
+        } catch (error) {
+            console.error('Upload Error:', error);
+            showUserMessage('An error occurred while uploading the image.','error');
+            return false;
+        }
     };
 
-    if (!updatedData.first_name || !updatedData.last_name || !updatedData.email) {
-        showUserMessage('error', 'Error', 'All fields are required.');
-        return;
-    }
+    const fetchUserProfile = async () => {
+        try {
+            const sessionResponse = await callApi('getUserSession', null);
+            if (sessionResponse.success) {
+                userId = sessionResponse.data.user_id;
 
-    // Email validation
-    if (!validateEmail(updatedData.email)) {
-        showUserMessage('error', 'Error', 'Please enter a valid email address.');
-        return;
-    }
-    try {
-        const result = await callApi('editProfile', { id: userId, ...updatedData });
+                const profileResponse = await callApi('profile', { id: userId });
+                if (profileResponse.success) {
+                    const { first_name, last_name, email, profile_image } = profileResponse.data;
 
-        if (result && result.success) {
-            // Update UI with new data
-            firstNameElem.textContent = updatedData.first_name;
-            lastNameElem.textContent = updatedData.last_name;
-            emailElem.textContent = updatedData.email;
+                    editFirstNameElem.value = first_name || '';
+                    editLastNameElem.value = last_name || '';
+                    editEmailElem.value = email || '';
 
-            profileDiv.style.display = 'block';
-            editProfileDiv.style.display = 'none';
-
-            showUserMessage('success', 'Profile Updated', result.message, {
-                toast: true,
-                position: 'bottom-end',
-                timer: 3000,
-                timerProgressBar: true
-            });
-        } else {
-            showUserMessage('error', 'Update Failed', result.message);
+                    document.getElementById('userName').textContent = `${first_name || 'N/A'} ${last_name || ''}`.trim();
+                    document.getElementById('userEmail').textContent = email || 'N/A';
+                    userImage.src = profile_image || 'assets/img/user_images/default_profile.png';
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching user profile:', error);
         }
-    } catch (error) {
-        console.error('Error updating profile:', error);
-        showUserMessage('error', 'Error', 'Error updating profile. Please try again.');
+    };
+
+    fetchUserProfile();
+
+    editProfileForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateEmail(editEmailElem.value)) {
+            showUserMessage('Please enter a valid email address.','error');
+            return;
+        }
+
+        const profileData = {
+            user_id: userId,
+            first_name: editFirstNameElem.value,
+            last_name: editLastNameElem.value,
+            email: editEmailElem.value
+        };
+
+        try {
+            const response = await callApi('updateProfile', profileData);
+
+            if (response.success) {
+                showUserMessage('Your profile information has been updated.','success');
+            } else {
+                showUserMessage( response.message || 'Failed to update profile.','error');
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            showUserMessage('An error occurred while updating your profile.','error');
+        }
+    });
+
+    function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
     }
 });
-
-function validateEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}

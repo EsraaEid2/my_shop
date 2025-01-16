@@ -12,9 +12,13 @@ const apis = {
         "url": `${base_url}/get_user_data.php`, 
         "method": "GET" 
     },
-    "editProfile": {
+    "updateProfile": {
         "url": `${base_url}/update_user_data.php`, 
         "method": "POST"
+    },
+    "uploadProfileImage": { 
+        "url": `${base_url}/upload_profile_image.php`, 
+        "method": "POST" 
     },
     "logout": { 
         "url": `${base_url}/destroy_user_session.php`, 
@@ -30,6 +34,14 @@ const apis = {
         },
     "getUserSession": { 
         "url": `${base_url}/get_user_session.php`, 
+        "method": "GET" 
+    },
+    "addProduct": { 
+        "url": `${base_url}/add_product.php`, 
+        "method": "POST" 
+    },
+    "getUserProducts": { 
+        "url": `${base_url}/get_user_products.php`, 
         "method": "GET" 
     },
 };
@@ -74,6 +86,7 @@ function showUserMessage(message, type = "info", customOptions = {}) {
         duration: 3000,
         position: 'top', // 'top' or 'bottom'
         dismissible: true, // Allow manual dismissal
+        progressBar: true,
     };
 
     const options = { ...defaultOptions, ...customOptions };
@@ -131,6 +144,22 @@ function showUserMessage(message, type = "info", customOptions = {}) {
     }
 }
 
+// Helper function to convert image to base64
+function getBase64Image($imagePath) {
+    $imageData = file_get_contents($imagePath);
+    return base64_encode($imageData);
+}
+
+// Convert a file to Base64
+async function toBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
 // Function to make an API call
 async function callApi(apiName, data = null) {
     // Validate API configuration
@@ -164,16 +193,15 @@ async function callApi(apiName, data = null) {
 
     try {
         const response = await fetch(apiUrl, options);
-        const rawText = await response.text(); // Fetch raw text response for debugging
+        const rawText = await response.text();
 
         logMessage(`Raw Response from '${apiName}': ${rawText}`);
 
-        // Parse rawText as JSON
         const jsonData = JSON.parse(rawText);
 
         if (response.ok) {
             showUserMessage(`API '${apiName}' executed successfully.`, "success");
-            return jsonData; // Return the JSON data on success
+            return jsonData;
         } else {
             logMessage(`Error in API '${apiName}': ${jsonData.message || 'Unknown error'}`, "error");
             showUserMessage(jsonData.message || 'An error occurred.', "error");
@@ -186,4 +214,4 @@ async function callApi(apiName, data = null) {
     }
 }
 
-export { callApi, logMessage, showUserMessage };
+export { callApi, logMessage, showUserMessage, getBase64Image, toBase64 };

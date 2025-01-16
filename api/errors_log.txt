@@ -170,3 +170,138 @@ Stack trace:
 [14-Jan-2025 15:44:37 Europe/Berlin] User ID: 48
 [14-Jan-2025 15:47:56 Europe/Berlin] Received ID: 49
 [14-Jan-2025 15:48:08 Europe/Berlin] User ID: 49
+[15-Jan-2025 08:18:46 Europe/Berlin] Received ID: 49
+[15-Jan-2025 10:00:33 Europe/Berlin] Received ID: 50
+[15-Jan-2025 10:03:21 Europe/Berlin] Received ID: 50
+[15-Jan-2025 11:17:15 Europe/Berlin] Received ID: 51
+[15-Jan-2025 11:17:49 Europe/Berlin] Received ID: 51
+[15-Jan-2025 11:17:55 Europe/Berlin] Received ID: 51
+[15-Jan-2025 11:18:19 Europe/Berlin] Received ID: 52
+[15-Jan-2025 11:21:18 Europe/Berlin] Received ID: 52
+[15-Jan-2025 11:21:42 Europe/Berlin] Received ID: 52
+[15-Jan-2025 11:22:21 Europe/Berlin] Received ID: 52
+[15-Jan-2025 11:24:10 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:24:13 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:30:01 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:30:02 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:30:03 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:30:03 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:30:03 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:30:03 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:30:04 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:31:52 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:31:58 Europe/Berlin] Received ID: 53
+[15-Jan-2025 11:36:18 Europe/Berlin] Received ID: 54
+[15-Jan-2025 11:46:23 Europe/Berlin] PHP Warning:  file_get_contents(assets/img/user_images/default_profile.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\sign_up.php on line 11
+[15-Jan-2025 11:46:47 Europe/Berlin] PHP Warning:  file_get_contents(assets/img/user_images/default_profile.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\sign_up.php on line 11
+[15-Jan-2025 11:47:08 Europe/Berlin] Received ID: 57
+[15-Jan-2025 11:48:01 Europe/Berlin] Received ID: 57
+[15-Jan-2025 11:48:13 Europe/Berlin] Received ID: 58
+[15-Jan-2025 11:52:23 Europe/Berlin] Received ID: 58
+[15-Jan-2025 11:52:29 Europe/Berlin] PHP Warning:  file_get_contents(assets/img/user_images/default_profile.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\sign_up.php on line 11
+[15-Jan-2025 11:57:58 Europe/Berlin] PHP Warning:  file_get_contents(assets/img/user_images/default_profile.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\sign_up.php on line 11
+[15-Jan-2025 11:58:08 Europe/Berlin] PHP Warning:  file_get_contents(assets/img/user_images/default_profile.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\sign_up.php on line 11
+[15-Jan-2025 12:01:50 Europe/Berlin] PHP Warning:  file_get_contents(assets/img/user_images/default_profile.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\sign_up.php on line 11
+[15-Jan-2025 12:01:58 Europe/Berlin] PHP Warning:  file_get_contents(assets/img/user_images/default_profile.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\sign_up.php on line 11
+[15-Jan-2025 12:06:01 Europe/Berlin] Received ID: 64
+[15-Jan-2025 12:10:54 Europe/Berlin] Received ID: 64
+[15-Jan-2025 12:12:20 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:12:43 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:15:02 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:15:03 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:18:54 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:21:45 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:21:58 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:26:04 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:27:49 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:31:41 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:32:04 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:36:25 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:40:22 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:40:44 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:41:52 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:42:03 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:42:26 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:43:02 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:43:02 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:43:22 Europe/Berlin] Received ID: 55
+[15-Jan-2025 12:44:09 Europe/Berlin] Received ID: 55
+[15-Jan-2025 13:31:53 Europe/Berlin] Received ID: 55
+[15-Jan-2025 13:32:01 Europe/Berlin] User ID: 
+[15-Jan-2025 13:32:05 Europe/Berlin] Received ID: 55
+[15-Jan-2025 13:35:07 Europe/Berlin] Received ID: 55
+[15-Jan-2025 13:35:13 Europe/Berlin] User ID: 
+[15-Jan-2025 13:43:37 Europe/Berlin] Received ID: 55
+[15-Jan-2025 13:50:08 Europe/Berlin] Received ID: 55
+[15-Jan-2025 13:50:26 Europe/Berlin] Received ID: 55
+[15-Jan-2025 13:52:38 Europe/Berlin] Received ID: 55
+[15-Jan-2025 13:52:46 Europe/Berlin] Received ID: 55
+[15-Jan-2025 14:02:22 Europe/Berlin] Received ID: 55
+[15-Jan-2025 14:02:39 Europe/Berlin] Received ID: 55
+[15-Jan-2025 14:06:09 Europe/Berlin] Received ID: 55
+[15-Jan-2025 14:06:15 Europe/Berlin] Received ID: 55
+[15-Jan-2025 14:06:28 Europe/Berlin] Received ID: 55
+[15-Jan-2025 14:12:26 Europe/Berlin] Received ID: 55
+[15-Jan-2025 14:12:26 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\get_user_data.php on line 27
+[15-Jan-2025 14:12:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\get_user_data.php on line 27
+[15-Jan-2025 14:12:55 Europe/Berlin] Received ID: 65
+[15-Jan-2025 14:12:55 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\get_user_data.php on line 27
+[15-Jan-2025 14:12:55 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\get_user_data.php on line 27
+[15-Jan-2025 14:15:27 Europe/Berlin] Received ID: 65
+[15-Jan-2025 14:15:27 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\get_user_data.php on line 27
+[15-Jan-2025 14:15:27 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\get_user_data.php on line 27
+[15-Jan-2025 14:40:37 Europe/Berlin] Received ID: 55
+[15-Jan-2025 14:40:37 Europe/Berlin] PHP Warning:  Undefined variable $user in C:\xampp\htdocs\my_shop\api\get_user_data.php on line 27
+[15-Jan-2025 14:40:37 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\my_shop\api\get_user_data.php on line 27
+
+[16-Jan-2025 09:45:33 Europe/Berlin] PHP Warning:  Undefined array key "user_id" in C:\xampp\htdocs\my_shop\api\add_product.php on line 6
+[16-Jan-2025 09:45:33 Europe/Berlin] PHP Warning:  Undefined array key "title" in C:\xampp\htdocs\my_shop\api\add_product.php on line 7
+[16-Jan-2025 09:45:33 Europe/Berlin] PHP Warning:  Undefined array key "description" in C:\xampp\htdocs\my_shop\api\add_product.php on line 8
+[16-Jan-2025 09:45:33 Europe/Berlin] PHP Warning:  Undefined array key "price" in C:\xampp\htdocs\my_shop\api\add_product.php on line 9
+[16-Jan-2025 09:45:33 Europe/Berlin] PHP Warning:  Undefined array key "stock_quantity" in C:\xampp\htdocs\my_shop\api\add_product.php on line 10
+[16-Jan-2025 09:45:33 Europe/Berlin] PHP Warning:  Undefined array key "image_url" in C:\xampp\htdocs\my_shop\api\add_product.php on line 11
+[16-Jan-2025 09:45:33 Europe/Berlin] PHP Warning:  Undefined variable $pdo in C:\xampp\htdocs\my_shop\api\add_product.php on line 16
+[16-Jan-2025 09:45:33 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\my_shop\api\add_product.php:16
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\add_product.php on line 16
+[16-Jan-2025 10:12:25 Europe/Berlin] PHP Warning:  file_put_contents(../uploads/product_images/product_6788cd79efc514.79510881.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\add_product.php on line 15
+[16-Jan-2025 10:15:26 Europe/Berlin] PHP Warning:  file_put_contents(../uploads/product_images/product_6788ce2e71dd36.67661849.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\add_product.php on line 15
+[16-Jan-2025 10:18:21 Europe/Berlin] PHP Warning:  file_put_contents(../img/product_images/product_6788cedd4db490.57695861.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\add_product.php on line 15
+[16-Jan-2025 10:19:29 Europe/Berlin] PHP Warning:  file_put_contents(assets/img/product_images/product_6788cf214778a2.50095351.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\add_product.php on line 15
+[16-Jan-2025 10:25:06 Europe/Berlin] PHP Warning:  file_put_contents(assets/img/product_images/product_6788d0726e59b4.91188050.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\add_product.php on line 15
+[16-Jan-2025 10:27:46 Europe/Berlin] PHP Warning:  file_put_contents(assets/img/product_images/product_6788d112dc0590.34962725.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\add_product.php on line 15
+[16-Jan-2025 10:32:03 Europe/Berlin] PHP Warning:  file_put_contents(/my_shop/assets/img/product_images/product_6788d2138f1a98.14341082.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\add_product.php on line 15
+[16-Jan-2025 10:32:22 Europe/Berlin] PHP Warning:  file_put_contents(my_shop/assets/img/product_images/product_6788d226f0b2c0.49310863.png): Failed to open stream: No such file or directory in C:\xampp\htdocs\my_shop\api\add_product.php on line 15
+[16-Jan-2025 10:32:53 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`myshop`.`products`, CONSTRAINT `products_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\my_shop\api\add_product.php:59
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\add_product.php(59): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\add_product.php on line 59
+[16-Jan-2025 10:33:39 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`myshop`.`products`, CONSTRAINT `products_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\my_shop\api\add_product.php:59
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\add_product.php(59): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\add_product.php on line 59
+[16-Jan-2025 10:34:23 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`myshop`.`products`, CONSTRAINT `products_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\my_shop\api\add_product.php:59
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\add_product.php(59): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\add_product.php on line 59
+[16-Jan-2025 10:35:30 Europe/Berlin] PHP Warning:  Undefined variable $image_url in C:\xampp\htdocs\my_shop\api\add_product.php on line 22
+[16-Jan-2025 10:35:30 Europe/Berlin] Base64 Image: 
+[16-Jan-2025 10:35:30 Europe/Berlin] PHP Warning:  Undefined variable $filePath in C:\xampp\htdocs\my_shop\api\add_product.php on line 23
+[16-Jan-2025 10:35:30 Europe/Berlin] Image Path: 
+[16-Jan-2025 10:35:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`myshop`.`products`, CONSTRAINT `products_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\my_shop\api\add_product.php:63
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\add_product.php(63): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\add_product.php on line 63
+[16-Jan-2025 10:36:11 Europe/Berlin] Base64 Image: iVBORw0KGgoAAAANSUhEUgAA... (base64 image data)
+[16-Jan-2025 10:36:11 Europe/Berlin] PHP Warning:  Undefined variable $filePath in C:\xampp\htdocs\my_shop\api\add_product.php on line 51
+[16-Jan-2025 10:36:11 Europe/Berlin] Image Path: 
+[16-Jan-2025 10:36:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`myshop`.`products`, CONSTRAINT `products_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE) in C:\xampp\htdocs\my_shop\api\add_product.php:65
+Stack trace:
+#0 C:\xampp\htdocs\my_shop\api\add_product.php(65): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\add_product.php on line 65

@@ -1,71 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start(); 
+$title = "Cake Shop | My Profile";
+require_once('controls/header.php'); 
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | My Shop</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-</head>
+<div class="container my-5">
+    <h2 class="text-center mb-4">User Profile</h2>
 
-<body>
-    <header>
-        <?php include 'navbar.php'; ?>
-    </header>
+    <!-- Profile Section -->
+    <div id="profile" class="card p-4 shadow-sm">
+        <div class="d-flex align-items-center">
+            <!-- User Image & Edit Icon -->
+            <div class="position-relative">
+                <img src="assets/img/user_images/default_profile.png" alt="User Image" id="userImage"
+                     class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+                <div id="editImageIcon" class="position-absolute top-0 end-0 p-2 bg-white rounded-circle"
+                     style="cursor: pointer;">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <input type="file" id="profileImageInput" class="d-none" accept="image/*">
+            </div>
 
-    <div class="container my-5">
-        <h2 class="text-center mb-4">User Profile</h2>
-        <div id="profile" class="card p-4 shadow-sm">
-            <div class="form-group mb-3">
-                <label for="first_name">First Name</label>
-                <p id="first_name" class="font-weight-bold">John</p>
-            </div>
-            <div class="form-group mb-3">
-                <label for="last_name">Last Name</label>
-                <p id="last_name" class="font-weight-bold">Doe</p>
-            </div>
-            <div class="form-group mb-3">
-                <label for="email">Email</label>
-                <p id="email" class="font-weight-bold">john.doe@example.com</p>
-            </div>
-            <div class="d-flex justify-content-end">
-                <button id="editProfileBtn" class="btn btn-warning">Edit Profile</button>
-            </div>
-        </div>
-
-        <!-- Edit Form (hidden by default) -->
-        <div id="editProfileForm" class="card p-4 shadow-sm mt-4" style="display: none;">
-            <h3>Edit Profile</h3>
-            <div class="form-group mb-3">
-                <label for="edit_first_name">First Name</label>
-                <input type="text" id="edit_first_name" class="form-control">
-            </div>
-            <div class="form-group mb-3">
-                <label for="edit_last_name">Last Name</label>
-                <input type="text" id="edit_last_name" class="form-control">
-            </div>
-            <div class="form-group mb-3">
-                <label for="edit_email">Email</label>
-                <input type="email" id="edit_email" class="form-control">
-            </div>
-            <div class="d-flex justify-content-between">
-                <button id="saveProfileBtn" class="btn btn-success">Save Changes</button>
-                <button id="cancelEditBtn" class="btn btn-secondary">Cancel</button>
+            <!-- User Name -->
+            <div class="ms-4">
+                <h3 id="userName">John Doe</h3>
+                <p id="userEmail" class="text-muted">john.doe@example.com</p>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/toast.js" type="module"></script>
-    <script src="assets/js/profile.js" type="module"></script>
-    <script src="assets/js/logout.js" type="module"></script>
-</body>
+    <!-- Save Image Button -->
+    <div class="text-center mt-3">
+        <button id="saveImageBtn" class="btn btn-success d-none">Save Image</button>
+    </div>
 
+    <!-- Tabs for Products & Edit Info -->
+    <div class="mt-5">
+        <ul class="nav nav-pills mb-3" id="profileTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="myProductsTab" data-bs-toggle="pill" href="#myProducts" role="tab"
+                   aria-controls="myProducts" aria-selected="true">My Products</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="editInfoTab" data-bs-toggle="pill" href="#editInfo" role="tab"
+                   aria-controls="editInfo" aria-selected="false">Edit Info</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="profileTabContent">
+            <!-- My Products Tab Content -->
+            <div class="tab-pane fade show active" id="myProducts" role="tabpanel" aria-labelledby="myProductsTab">
+                <h4>Your Products</h4>
+                <div id="myProductsList">
+                    <!-- Dynamically populated list of products will go here -->
+                </div>
+            </div>
+
+            <!-- Edit Info Tab Content -->
+            <div class="tab-pane fade" id="editInfo" role="tabpanel" aria-labelledby="editInfoTab">
+                <h4>Edit Your Information</h4>
+                <form id="editProfileForm">
+                    <div class="form-group mb-3">
+                        <label for="edit_first_name">First Name</label>
+                        <input type="text" id="edit_first_name" class="form-control" value="John">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="edit_last_name">Last Name</label>
+                        <input type="text" id="edit_last_name" class="form-control" value="Doe">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="edit_email">Email</label>
+                        <input type="email" id="edit_email" class="form-control" value="john.doe@example.com">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php 
+require_once('controls/footer.php');
+?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/profile.js" type="module"></script>
+
+</body>
 </html>

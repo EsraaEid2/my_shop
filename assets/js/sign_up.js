@@ -1,5 +1,5 @@
 // Import the necessary functions
-import { logMessage, callApi, showUserMessage } from './config.js';
+import { callApi, showUserMessage } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Get references to the form
@@ -13,11 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check if passwords match
         if (password !== confirmPassword) {
-            showUserMessage(
-                'error',  // Type of message
-                'Passwords do not match',  // Main message
-                'Please make sure both passwords are the same.'  // Detailed message
-            );
+            showUserMessage('Passwords do not match','error');
             return;
         }
 
@@ -41,28 +37,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Session response:', sessionResponse);
                 if (sessionResponse && sessionResponse.success) {
                     // Success message
-                    showUserMessage(
-                        'success',  // Type of message
-                        'Registration Successful',  // Main message
-                        sessionResponse.message,  // Detailed message
-                        { toast: true, position: 'bottom-end', timer: 3000, timerProgressBar: true }  // Custom options
-                    );
+                    showUserMessage('Registration Successful','success');
                     setTimeout(() => {
                         // Redirect to profile page after the toast disappears
-                        window.location.href = '/my_shop/profile.php';
+                        window.location.href = '/my_shop/shop.php';
                     }, 3100);
                 } else {
                     // Handle session setting failure
-                    showUserMessage('error', 'Error', sessionResponse.message);
+                    showUserMessage(sessionResponse.message,'error');
                 }
             } else {
                 // Handle registration failure
-                showUserMessage('error', 'Error', registrationResponse.message);
+                showUserMessage(registrationResponse.message,'error');
             }
         } catch (error) {
             // Handle API errors
             console.log(error);
-            showUserMessage('error', 'Error', `An error occurred: ${error.message}`);
+            showUserMessage(`An error occurred: ${error.message}`,'error');
         }
     });
 });

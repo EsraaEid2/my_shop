@@ -6,6 +6,15 @@ header('Content-Type: application/json');
 // Ensure no stray output
 ob_start();
 
+// Helper function to convert image to base64
+function getBase64Image($imagePath) {
+    $imageData = file_get_contents($imagePath);
+    return base64_encode($imageData);
+}
+
+// Default image path
+$defaultImagePath = '../assets/img/user_images/default_profile.png';
+
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -55,8 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Register new user
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, status) VALUES (?, ?, ?, ?, 1)");
-        $stmt->bind_param("ssss", $first_name, $last_name, $email, $hashed_password);
+        $defaultImageBase64 = getBase64Image($defaultImagePath);
+
+        // Fix: Properly bind the base64 image as a TEXT type
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, profile_image, status) VALUES (?, ?, ?, ?, ?, 1)");
+        $stmt->bind_param("sssss", $first_name, $last_name, $email, $hashed_password, $defaultImageBase64);
 
         if ($stmt->execute()) {
             $user_id = $stmt->insert_id;
