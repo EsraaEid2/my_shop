@@ -37,7 +37,7 @@ form.addEventListener('submit', async (e) => {
             if (sessionResponse && sessionResponse.success) {
                 // Redirect to the user profile page after a slight delay
                 setTimeout(() => {
-                    window.location.href = '/my_shop/profile.php';
+                    window.location.href = '/my_shop/shop.php';
                 }, 2000);
             } else {
                 showUserMessage('Failed to set session. Please try again.', 'error');

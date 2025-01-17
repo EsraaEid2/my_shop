@@ -1,7 +1,7 @@
 // Import the necessary functions
 import { logMessage, callApi, showUserMessage } from './config.js';
 
-const logoutBtn = document.getElementById('logout-link');
+const logoutBtn = document.getElementById('logout-button');
 
 // Logout functionality
 if (logoutBtn) {

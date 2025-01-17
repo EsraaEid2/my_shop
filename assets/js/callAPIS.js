@@ -40,9 +40,21 @@ const apis = {
         "url": `${base_url}/add_product.php`, 
         "method": "POST" 
     },
+    "getProducts": {
+        "url":`${base_url}/get_products.php`,
+        "method": "GET"
+    },
+    "getProductById":{
+        "url":`${base_url}/get_product_by_id.php`,
+        "method": "GET"
+    },
     "getUserProducts": { 
         "url": `${base_url}/get_user_products.php`, 
         "method": "GET" 
+    },
+    "editUserProduct": {
+        "url": `${base_url}/edit_user_product.php`,
+        "method": "POST"
     },
 };
 
@@ -177,6 +189,7 @@ async function callApi(apiName, data = null) {
         const queryParams = new URLSearchParams(data).toString();
         apiUrl += `?${queryParams}`;
     }
+    logMessage(`Calling API '${apiName}' with URL: ${apiUrl} and data: ${JSON.stringify(data)}`);
 
     // Request options
     const options = {

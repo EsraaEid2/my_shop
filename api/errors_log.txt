@@ -305,3 +305,38 @@ Stack trace:
 #0 C:\xampp\htdocs\my_shop\api\add_product.php(65): mysqli_stmt->execute()
 #1 {main}
   thrown in C:\xampp\htdocs\my_shop\api\add_product.php on line 65
+[16-Jan-2025 14:23:31 Europe/Berlin] Received user ID: undefined
+[16-Jan-2025 14:24:46 Europe/Berlin] Received user ID: 71
+[16-Jan-2025 14:32:29 Europe/Berlin] Received user ID: 71
+[16-Jan-2025 14:32:56 Europe/Berlin] Received user ID: 71
+[16-Jan-2025 14:33:04 Europe/Berlin] Received user ID: 71
+[16-Jan-2025 14:34:37 Europe/Berlin] Received user ID: 71
+[16-Jan-2025 14:35:09 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:35:41 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:36:31 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:41:40 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:41:53 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:51:46 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:52:27 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:56:22 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:58:09 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 14:58:16 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:05:38 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:16:31 Europe/Berlin] PHP Warning:  Undefined variable $pdo in C:\xampp\htdocs\my_shop\api\get_product_by_id.php on line 10
+[16-Jan-2025 15:16:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\my_shop\api\get_product_by_id.php:10
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\my_shop\api\get_product_by_id.php on line 10
+[16-Jan-2025 15:20:32 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:21:36 Europe/Berlin] PHP Fatal error:  Cannot redeclare print_response() (previously declared in C:\xampp\htdocs\my_shop\api\get_product_by_id.php:43) in C:\xampp\htdocs\my_shop\controls\api_response.php on line 26
+[16-Jan-2025 15:29:13 Europe/Berlin] PHP Fatal error:  Cannot redeclare print_response() (previously declared in C:\xampp\htdocs\my_shop\api\edit_user_product.php:82) in C:\xampp\htdocs\my_shop\controls\api_response.php on line 26
+[16-Jan-2025 15:31:06 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:34:28 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:47:26 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:51:30 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:52:09 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:54:16 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 15:54:18 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 16:02:04 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 16:13:44 Europe/Berlin] Received user ID: 80
+[16-Jan-2025 18:33:42 Europe/Berlin] Received user ID: 80
