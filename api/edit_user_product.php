@@ -12,50 +12,46 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // Validate the input
 $product_id = $data['id'] ?? null; // Fetch product ID from the request body
-$title = $data['title'] ?? null;
-$description = $data['description'] ?? null;
-$price = $data['price'] ?? null;
-$stock_quantity = $data['stock_quantity'] ?? null;
+// Validate and sanitize inputs
+$title = htmlspecialchars($data['title'], ENT_QUOTES, 'UTF-8');
+$description = htmlspecialchars($data['description'], ENT_QUOTES, 'UTF-8');
+$price = filter_var($data['price'], FILTER_VALIDATE_FLOAT);
+$stock_quantity = filter_var($data['stock_quantity'], FILTER_VALIDATE_INT);
 
-if (empty($product_id) || !is_numeric($product_id)) {
-    print_response(false, "Invalid or missing product ID.");
+if ($price === false || $stock_quantity === false) {
+    print_response(false, "Invalid price or stock quantity.");
 }
 
-if (empty($title) || empty($description) || empty($price) || empty($stock_quantity)) {
-    print_response(false, "All fields (title, description, price, stock_quantity) are required.");
-}
-
-// Initialize image path variable
-$image_path = null;
-
-// Handle the image upload if provided
-if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
-    // Validate image file (type and size)
-    $allowed_extensions = ['image/jpeg', 'image/png'];
-    $max_size = 2 * 1024 * 1024; // 2MB max
-
-    $file_type = $_FILES['product_image']['type'];
-    $file_size = $_FILES['product_image']['size'];
-
-    if (!in_array($file_type, $allowed_extensions)) {
-        print_response(false, "Invalid image format. Allowed formats: JPG, PNG.");
+// Image validation
+if (!empty($image_base64)) {
+    $decoded_image = base64_decode($image_base64);
+    if ($decoded_image === false) {
+        print_response(false, "Invalid Base64 image string.");
     }
 
-    if ($file_size > $max_size) {
-        print_response(false, "File size is too large. Maximum allowed size is 2MB.");
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime_type = finfo_buffer($finfo, $decoded_image);
+    finfo_close($finfo);
+
+    if (!in_array($mime_type, ['image/jpeg', 'image/png'])) {
+        print_response(false, "Invalid image format.");
     }
 
-    // Convert the image to Base64
-    $file_path = $_FILES['product_image']['tmp_name'];
-    $image_base64 = base64_encode(file_get_contents($file_path));
+    $image_name = 'product_' . uniqid() . '.png';
+    $image_path = 'assets/img/product_images/' . $image_name;
 
-    // Set the image path for database update
-    $image_path = $image_base64;
+    if (file_put_contents($image_path, $decoded_image) === false) {
+        print_response(false, "Failed to save the uploaded image.");
+    }
 }
+
 
 try {
     // Prepare the SQL statement for updating product data
-    $stmt = $conn->prepare("UPDATE products SET title = ?, description = ?, price = ?, stock_quantity = ? " . ($image_path ? ", image_url = ?" : "") . " WHERE id = ?");
+    $stmt = $conn->prepare(
+        "UPDATE products SET title = ?, description = ?, price = ?, stock_quantity = ? " . 
+        ($image_path ? ", image_url = ?" : "") . " WHERE id = ?"
+    );
     
     if ($image_path) {
         $stmt->bind_param("ssdisi", $title, $description, $price, $stock_quantity, $image_path, $product_id);
@@ -68,10 +64,13 @@ try {
             // Fetch updated product data
             $result = $conn->query("SELECT id, title, description, price, stock_quantity, image_url FROM products WHERE id = $product_id");
             $product = $result->fetch_assoc();
+            $product['image_url'] = 'http://localhost/my_shop/assets/img/product_images' . $product['image_url']; // Append base URL to the image path
             print_response(true, "Product updated successfully.", $product);
         } else {
             print_response(false, "No changes made or product not found.");
         }
+    } else {
+        print_response(false, "Failed to update the product.");
     }
 } catch (Exception $e) {
     // Catch any exceptions

@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 // Check if product_id is passed as a query parameter
 if (isset($_GET['product_id'])) {
     $productId = $_GET['product_id'];
-
+    error_log("product_id : ". $productId);
     // Validate the product_id
     if (empty($productId) || !is_numeric($productId)) {
         print_response(false, 'Invalid product ID');

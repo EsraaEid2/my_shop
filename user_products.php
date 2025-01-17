@@ -27,7 +27,7 @@ require_once('controls/header.php');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addProductForm">
+                <form id="addProductForm" enctype="multipart/form-data">
                     <!-- Form fields for creating a new product -->
                     <div class="mb-3">
                         <label for="title" class="form-label">Product Title</label>
@@ -67,27 +67,37 @@ require_once('controls/header.php');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editProductForm"> <!-- Changed to 'editProductForm' -->
+                <form id="editProductForm">
+                    <input type="hidden" id="edit-product-id" name="product_id">
                     <div class="mb-3">
                         <label for="title" class="form-label">Product Title</label>
-                        <input type="text" name="title" class="form-control" id="edit-title" placeholder="Enter product name" required>
+                        <input type="text" name="title" class="form-control" id="edit-title"
+                            placeholder="Enter product name" required>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea name="description" class="form-control" id="edit-description" placeholder="Enter product details" rows="3" required></textarea>
+                        <textarea name="description" class="form-control" id="edit-description"
+                            placeholder="Enter product details" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price (JOD)</label>
-                        <input type="number" name="price" class="form-control" id="edit-price" placeholder="Enter product price" min="1" required>
+                        <input type="number" name="price" class="form-control" id="edit-price"
+                            placeholder="Enter product price" min="1" required>
                     </div>
                     <div class="mb-3">
                         <label for="stock_quantity" class="form-label">Stock Quantity</label>
-                        <input type="number" name="stock_quantity" class="form-control" id="edit-stock_quantity" placeholder="Enter available stock" min="1" required>
+                        <input type="number" name="stock_quantity" class="form-control" id="edit-stock_quantity"
+                            placeholder="Enter available stock" min="1" required>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <img id="edit-product-image" src="" alt="Product Image" class="img-fluid mb-3"
+                            style="max-height: 200px;">
                     </div>
                     <div class="mb-3">
-                        <label for="image_url" class="form-label">Product Image</label>
+                        <label for="edit-image_url" class="form-label">Product Image</label>
                         <input type="file" name="image_url" class="form-control" id="edit-image_url">
                     </div>
+
                     <div class="text-center">
                         <button type="submit" class="btn btn-success">Save Changes</button>
                     </div>
@@ -103,12 +113,14 @@ require_once('controls/footer.php');
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src = "assets/js/display_products.js" type = "module"></script>
+<script src="assets/js/delete_user_product.js" type="module"></script>
+<script src="assets/js/display_products.js" type="module"></script>
 <script src="assets/js/get_user_products.js" type="module"></script>
 <script src="assets/js/add_product.js" type="module"></script>
-<script src = "assets/js/edit_user_product.js" type = "module"></script>
-<script src = "assets/js/delete_user_product.js" type = "module"></script>
+<!-- <script src="assets/js/edit_user_product.js" type="module"></script> -->
+
 
 
 </body>
+
 </html>

@@ -1,10 +1,21 @@
-// Import necessary functions from config.js
-import { callApi, showUserMessage, toBase64 } from './config.js';
+// Import necessary functions from callAPIS.js
+import { callApi, showUserMessage, handleImageUpload } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Reference the form
+    const modal = document.getElementById('postProductModal');
     const form = document.getElementById('addProductForm');
     const imageInput = document.getElementById('image_url');
+
+    // Event listener for when the modal is shown
+    modal.addEventListener('shown.bs.modal', () => {
+        modal.setAttribute('aria-hidden', 'false');
+    });
+
+    // Event listener for when the modal is hidden
+    modal.addEventListener('hidden.bs.modal', () => {
+        modal.setAttribute('aria-hidden', 'true');
+    });
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -25,16 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Call the getUserSession API to retrieve user session
             const sessionResponse = await callApi('getUserSession');
-            
-            if (!sessionResponse.success) {
+
+            if (!sessionResponse || !sessionResponse.success) {
                 showUserMessage('You must be logged in to add a product.', 'error');
                 return;
             }
 
             const userId = sessionResponse.data.user_id; // Extract the user_id
 
-            // Convert image to Base64
-            const base64Image = await toBase64(imageFile);
+            // Call the handleImageUpload function to handle the image
+            const base64Image = await handleImageUpload({ target: { files: [imageFile] } });
+            if (!base64Image) return;
 
             // Prepare the data object
             const formData = {
@@ -45,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 image_url: base64Image, // Send the image in Base64 format
                 user_id: userId // Add the user_id to the form data
             };
-            console.log(formData);
 
             // Call the API to add the product
             const addProductResponse = await callApi('addProduct', formData);

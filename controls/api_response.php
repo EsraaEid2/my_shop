@@ -1,5 +1,4 @@
 <?php
-// File: api_response.php
 
 /**
  * Function to print a standardized API response as an object.

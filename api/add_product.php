@@ -5,13 +5,25 @@ header('Content-Type: application/json');
 
 // Ensure no stray output
 ob_start();
+error_log("esrsss");
 
 // Helper function to decode and save a Base64 image
 function saveBase64Image($base64Image, $uploadPath) {
+    // Check if the base64 image string has the correct format
+    if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
+        $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
+    }
+
     $imageData = base64_decode($base64Image);
-    $uniqueName = uniqid('product_', true) . '.png';
+    if ($imageData === false) {
+        return false; // Return false if Base64 is invalid
+    }
+
+    // Generate a unique name for the image
+    $uniqueName = uniqid('product_', true) . '.png'; // You can adjust the extension if needed
     $filePath = $uploadPath . $uniqueName;
 
+    // Save the image to the server
     if (file_put_contents($filePath, $imageData)) {
         return $uniqueName; // Return the saved file name
     }
@@ -36,13 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
+    // Extract product details from the data
     $title = $data['title'] ?? null;
     $description = $data['description'] ?? null;
     $price = $data['price'] ?? null;
     $stock_quantity = $data['stock_quantity'] ?? null;
     $image_url = $data['image_url'] ?? null;
-
-    // Validate input
+    error_log("image url" . $image_url);
+    // Validate input fields
     if (empty($title) || empty($description) || empty($price) || empty($stock_quantity) || empty($image_url)) {
         print_response(false, "All fields are required.");
         exit();
@@ -59,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         print_response(false, "Failed to save the product image.");
         exit();
     }
+  var_dump($savedImageName);
 
     // Insert product into the database, including user_id
     $stmt = $conn->prepare("INSERT INTO products (title, description, price, stock_quantity, image_url, user_id, is_deleted) VALUES (?, ?, ?, ?, ?, ?, 0)");
@@ -67,13 +81,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         $product_id = $stmt->insert_id;
 
+        // Return a response with product details and the image URL
         print_response(true, "Product added successfully.", [
             "id" => $product_id,
             "title" => $title,
             "description" => $description,
             "price" => $price,
             "stock_quantity" => $stock_quantity,
-            "image_url" => $uploadDir . $savedImageName // Return full image path
+            "image_url" => '/my_shop/assets/img/product_images/' . $savedImageName // Relative URL to access image
         ]);
     } else {
         print_response(false, "Failed to add product.");
@@ -85,4 +100,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ob_end_flush();
+
 ?>

@@ -4,56 +4,60 @@ const base_url = is_live ? "https://my-shop.com" : "http://localhost/my_shop/api
 
 // API configurations
 const apis = {
-    "login": { 
-        "url": `${base_url}/login.php`, 
-        "method": "POST" 
-    },
-    "profile": { 
-        "url": `${base_url}/get_user_data.php`, 
-        "method": "GET" 
-    },
-    "updateProfile": {
-        "url": `${base_url}/update_user_data.php`, 
+    "login": {
+        "url": `${base_url}/login.php`,
         "method": "POST"
     },
-    "uploadProfileImage": { 
-        "url": `${base_url}/upload_profile_image.php`, 
-        "method": "POST" 
+    "profile": {
+        "url": `${base_url}/get_user_data.php`,
+        "method": "GET"
     },
-    "logout": { 
-        "url": `${base_url}/destroy_user_session.php`, 
-        "method": "GET" 
+    "updateProfile": {
+        "url": `${base_url}/update_user_data.php`,
+        "method": "POST"
     },
-    "signUp": { 
-        "url": `${base_url}/sign_up.php`, 
-        "method": "POST" 
+    "uploadProfileImage": {
+        "url": `${base_url}/upload_profile_image.php`,
+        "method": "POST"
     },
-    "setUserSession": { 
+    "logout": {
+        "url": `${base_url}/destroy_user_session.php`,
+        "method": "GET"
+    },
+    "signUp": {
+        "url": `${base_url}/sign_up.php`,
+        "method": "POST"
+    },
+    "setUserSession": {
         "url": `${base_url}/set_user_session.php`,
-         "method": "POST" 
-        },
-    "getUserSession": { 
-        "url": `${base_url}/get_user_session.php`, 
-        "method": "GET" 
+        "method": "POST"
     },
-    "addProduct": { 
-        "url": `${base_url}/add_product.php`, 
-        "method": "POST" 
+    "getUserSession": {
+        "url": `${base_url}/get_user_session.php`,
+        "method": "GET"
+    },
+    "addProduct": {
+        "url": `${base_url}/add_product.php`,
+        "method": "POST"
     },
     "getProducts": {
-        "url":`${base_url}/get_products.php`,
+        "url": `${base_url}/get_products.php`,
         "method": "GET"
     },
-    "getProductById":{
-        "url":`${base_url}/get_product_by_id.php`,
+    "getProductById": {
+        "url": `${base_url}/get_product_by_id.php`,
         "method": "GET"
     },
-    "getUserProducts": { 
-        "url": `${base_url}/get_user_products.php`, 
-        "method": "GET" 
+    "getUserProducts": {
+        "url": `${base_url}/get_user_products.php`,
+        "method": "GET"
     },
     "editUserProduct": {
         "url": `${base_url}/edit_user_product.php`,
+        "method": "POST"
+    },
+    "deleteUserProduct": {
+        "url": `${base_url}/delete_user_product.php`,
         "method": "POST"
     },
 };
@@ -110,13 +114,13 @@ function showUserMessage(message, type = "info", customOptions = {}) {
     const existingBox = document.getElementById("user-message-box");
     if (existingBox) existingBox.remove();
 
-    // Create message box
+    // Create and display message box
     const messageBox = document.createElement("div");
     messageBox.id = "user-message-box";
     messageBox.className = `user-message ${type} ${options.position}`;
-    
+
     // Add close button if dismissible
-    const closeButton = options.dismissible ? 
+    const closeButton = options.dismissible ?
         '<button class="close-btn" onclick="this.parentElement.remove();">' +
         '<span class="material-symbols-rounded">close</span></button>' : '';
 
@@ -156,25 +160,91 @@ function showUserMessage(message, type = "info", customOptions = {}) {
     }
 }
 
-// Helper function to convert image to base64
-function getBase64Image($imagePath) {
-    $imageData = file_get_contents($imagePath);
-    return base64_encode($imageData);
+/**
+ * Validates an image file based on size and type.
+ * @param {File} file - The image file to validate.
+ * @param {Object} options - Validation options.
+ * @param {number} options.maxSizeMB - Maximum file size in MB.
+ * @param {string[]} options.allowedTypes - Allowed MIME types.
+ * @returns {Object} Validation result with success and message.
+ */
+const defaultValidationOptions = {
+    maxSizeMB: 2,
+    allowedTypes: ['image/jpeg', 'image/png'],
+};
+
+function validateImage(file, options = {}) {
+    if (!file) {
+        return { success: false, message: "No file provided." };
+    }
+
+    const { maxSizeMB, allowedTypes } = { ...defaultValidationOptions, ...options };
+
+    // Check file size
+    const maxSizeBytes = maxSizeMB * 1024 * 1024;
+    if (file.size > maxSizeBytes) {
+        return { success: false, message: `File size exceeds ${maxSizeMB}MB.` };
+    }
+
+    // Check file type
+    if (!allowedTypes.includes(file.type)) {
+        return { success: false, message: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}.` };
+    }
+
+    return { success: true, message: "File is valid." };
 }
 
-// Convert a file to Base64
+/**
+ * Helper function to convert an image file to Base64 format.
+ * @param {File} file - The file to convert.
+ * @returns {Promise<string>} - A promise that resolves with the Base64 string.
+ */
 async function toBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onload = () => resolve(reader.result.split(",")[1]); // Get only the Base64 part
         reader.onerror = reject;
         reader.readAsDataURL(file);
     });
 }
 
-// Function to make an API call
+/**
+ * Handles image upload, validates it, and processes it.
+ * @param {Event} event - The input change event.
+ */
+async function handleImageUpload(event) {
+    const file = event.target.files[0]; // Get the uploaded file
+
+    // Validate the image
+    const validation = validateImage(file, { maxSizeMB: 5, allowedTypes: ['image/jpeg', 'image/png', 'image/gif'] });
+
+    if (!validation.success) {
+        // Show an error message
+        showUserMessage(validation.message, "error");
+        event.target.value = ""; // Clear the file input
+        return null; // Return null in case of validation failure
+    }
+
+    // Convert to Base64 and return it
+    const imageBase64 = await toBase64(file);
+    return imageBase64; // Return the base64 string
+}
+
+/**
+ * Helper function to get a Base64 string of an image file from its path.
+ * (This is a PHP function for server-side processing.)
+ * @param {string} $imagePath - The path to the image file.
+ * @returns {string} - Base64-encoded string.
+ */
+function getBase64Image($imagePath) {
+    const $imageData = file_get_contents($imagePath);
+    return base64_encode($imageData);
+}
+
+/**
+* Makes an API call and handles responses
+*/
 async function callApi(apiName, data = null) {
-    // Validate API configuration
     if (!apis[apiName]) {
         logMessage(`API '${apiName}' not found.`, "error");
         showUserMessage(`Error: API '${apiName}' not found.`, "error");
@@ -184,14 +254,13 @@ async function callApi(apiName, data = null) {
     const { url, method } = apis[apiName];
     let apiUrl = url;
 
-    // Append query parameters for GET requests
     if (method === "GET" && data) {
         const queryParams = new URLSearchParams(data).toString();
         apiUrl += `?${queryParams}`;
     }
+
     logMessage(`Calling API '${apiName}' with URL: ${apiUrl} and data: ${JSON.stringify(data)}`);
 
-    // Request options
     const options = {
         method: method,
         headers: {
@@ -199,7 +268,6 @@ async function callApi(apiName, data = null) {
         },
     };
 
-    // Include request body for POST/PUT methods
     if (["POST", "PUT"].includes(method) && data) {
         options.body = JSON.stringify(data);
     }
@@ -210,21 +278,33 @@ async function callApi(apiName, data = null) {
 
         logMessage(`Raw Response from '${apiName}': ${rawText}`);
 
-        const jsonData = JSON.parse(rawText);
+        // Check if response starts with a string and JSON follows
+        const jsonStart = rawText.indexOf("{");
+        if (jsonStart === -1) {
+            logMessage(`Invalid response from '${apiName}': ${rawText}`, "error");
+            showUserMessage('Received an invalid response from the server.', "error");
+            return null;
+        }
+
+        const jsonString = rawText.slice(jsonStart);
+        const jsonData = JSON.parse(jsonString);
 
         if (response.ok) {
             showUserMessage(`API '${apiName}' executed successfully.`, "success");
             return jsonData;
         } else {
-            logMessage(`Error in API '${apiName}': ${jsonData.message || 'Unknown error'}`, "error");
-            showUserMessage(jsonData.message || 'An error occurred.', "error");
+            const errorMsg = jsonData?.message || `Server returned status ${response.status}`;
+            logMessage(`Error in API '${apiName}': ${errorMsg}`, "error");
+            showUserMessage(errorMsg, "error");
             return null;
         }
-    } catch (error) {
-        logMessage(`Network/API Error for '${apiName}': ${error}`, "error");
+    } catch (networkError) {
+        logMessage(`Network/API Error for '${apiName}': ${networkError}`, "error");
         showUserMessage('Network issue or API is unavailable.', "error");
         return null;
     }
 }
 
-export { callApi, logMessage, showUserMessage, getBase64Image, toBase64 };
+
+
+export { callApi, logMessage, showUserMessage, handleImageUpload ,toBase64};
