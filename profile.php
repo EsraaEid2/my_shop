@@ -34,48 +34,24 @@ require_once('controls/header.php');
         <button id="saveImageBtn" class="btn btn-success d-none">Save Image</button>
     </div>
 
-    <!-- Tabs for Products & Edit Info -->
+    <!-- Edit Info Section -->
     <div class="mt-5">
-        <ul class="nav nav-pills mb-3" id="profileTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="myProductsTab" data-bs-toggle="pill" href="#myProducts" role="tab"
-                   aria-controls="myProducts" aria-selected="true">My Products</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="editInfoTab" data-bs-toggle="pill" href="#editInfo" role="tab"
-                   aria-controls="editInfo" aria-selected="false">Edit Info</a>
-            </li>
-        </ul>
-
-        <div class="tab-content" id="profileTabContent">
-            <!-- My Products Tab Content -->
-            <div class="tab-pane fade show active" id="myProducts" role="tabpanel" aria-labelledby="myProductsTab">
-                <h4>Your Products</h4>
-                <div id="myProductsList">
-                    <!-- Dynamically populated list of products will go here -->
-                </div>
+        <h4 class="mb-4">Edit Your Information</h4>
+        <form id="editProfileForm">
+            <div class="form-group mb-3">
+                <label for="edit_first_name">First Name</label>
+                <input type="text" id="edit_first_name" class="form-control" value="John">
             </div>
-
-            <!-- Edit Info Tab Content -->
-            <div class="tab-pane fade" id="editInfo" role="tabpanel" aria-labelledby="editInfoTab">
-                <h4>Edit Your Information</h4>
-                <form id="editProfileForm">
-                    <div class="form-group mb-3">
-                        <label for="edit_first_name">First Name</label>
-                        <input type="text" id="edit_first_name" class="form-control" value="John">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="edit_last_name">Last Name</label>
-                        <input type="text" id="edit_last_name" class="form-control" value="Doe">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="edit_email">Email</label>
-                        <input type="email" id="edit_email" class="form-control" value="john.doe@example.com">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
+            <div class="form-group mb-3">
+                <label for="edit_last_name">Last Name</label>
+                <input type="text" id="edit_last_name" class="form-control" value="Doe">
             </div>
-        </div>
+            <div class="form-group mb-3">
+                <label for="edit_email">Email</label>
+                <input type="email" id="edit_email" class="form-control" value="john.doe@example.com">
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
     </div>
 </div>
 

@@ -117,7 +117,7 @@ require_once('controls/footer.php');
 <script src="assets/js/display_products.js" type="module"></script>
 <script src="assets/js/get_user_products.js" type="module"></script>
 <script src="assets/js/add_product.js" type="module"></script>
-<!-- <script src="assets/js/edit_user_product.js" type="module"></script> -->
+<script src="assets/js/edit_user_product.js" type="module"></script>
 
 
 

@@ -11,10 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $data = json_decode(file_get_contents('php://input'), true);
 
 // Validate the input
-$user_id = $data['id'] ?? null; // Fetch user ID from the request body
+$user_id = $data['user_id'] ?? null; // Fetch user ID from the request body
 $first_name = $data['first_name'] ?? null;
 $last_name = $data['last_name'] ?? null;
 $email = $data['email'] ?? null;
+$image_base64 = $data['profile_image'] ?? null; // The Base64 encoded image
 
 if (empty($user_id) || !is_numeric($user_id)) {
     print_response(false, "Invalid or missing user ID.");
@@ -27,29 +28,23 @@ if (empty($first_name) || empty($last_name) || empty($email)) {
 // Initialize image path variable
 $image_path = null;
 
-// Handle the image upload if provided
-if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {
-    // Validate image file (type and size)
-    $allowed_extensions = ['image/jpeg', 'image/png'];
-    $max_size = 2 * 1024 * 1024; // 2MB max
+// Handle the Base64 image if provided
+if ($image_base64) {
+    // Validate the Base64 string format (ensure it's a valid image)
+    $image_data = base64_decode($image_base64, true);
+    if ($image_data === false) {
+        print_response(false, "Invalid Base64 image data.");
+    }
 
-    $file_type = $_FILES['profile_image']['type'];
-    $file_size = $_FILES['profile_image']['size'];
-
-    if (!in_array($file_type, $allowed_extensions)) {
+    // Determine the file extension and validate it
+    $image_info = getimagesizefromstring($image_data);
+    if ($image_info === false || !in_array($image_info['mime'], ['image/jpeg', 'image/png'])) {
         print_response(false, "Invalid image format. Allowed formats: JPG, PNG.");
     }
 
-    if ($file_size > $max_size) {
-        print_response(false, "File size is too large. Maximum allowed size is 2MB.");
-    }
-
-    // Convert the image to Base64
-    $file_path = $_FILES['profile_image']['tmp_name'];
-    $image_base64 = base64_encode(file_get_contents($file_path));
-
-    // Set the image path for database update
-    $image_path = $image_base64;
+    // Set the image path for saving in the desired location
+    $image_path = 'my_shop/assets/img/user_images/' . uniqid('profile_') . '.' . pathinfo($image_info['mime'], PATHINFO_EXTENSION);
+    file_put_contents($image_path, $image_data); // Save the image to the server
 }
 
 try {
@@ -72,7 +67,7 @@ try {
             print_response(false, "No changes made or user not found.");
         }
     }
-}     catch (Exception $e) {
+} catch (Exception $e) {
     // Catch any exceptions
     print_response(false, "An error occurred: " . $e->getMessage());
 }

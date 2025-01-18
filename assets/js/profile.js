@@ -1,87 +1,68 @@
-import { logMessage, callApi, showUserMessage } from './config.js';
+import { handleImageUpload, showUserMessage, callApi, validateImage } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const profileImageInput = document.getElementById('profileImageInput');
     const saveImageBtn = document.getElementById('saveImageBtn');
     const editImageIcon = document.getElementById('editImageIcon');
     const editProfileForm = document.getElementById('editProfileForm');
-    const tabs = document.querySelectorAll('.nav-link');
-    let userId = null;
-
-    // Initialize Bootstrap tabs
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function () {
-            tabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            const bootstrapTabHandler = new bootstrap.Tab(this);
-            bootstrapTabHandler.show();
-        });
-    });
 
     const editFirstNameElem = document.getElementById('edit_first_name');
     const editLastNameElem = document.getElementById('edit_last_name');
     const editEmailElem = document.getElementById('edit_email');
     const userImage = document.getElementById('userImage');
 
+    let userId = null;
+
+    // Profile Image Edit Logic
     editImageIcon.addEventListener('click', () => profileImageInput.click());
 
-    profileImageInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                userImage.src = e.target.result;
-                saveImageBtn.classList.remove('d-none');
-            };
-            reader.readAsDataURL(file);
+    profileImageInput.addEventListener('change', async (event) => {
+        const imageBase64 = await handleImageUpload(event);
+        // console.log(imageBase64);
+        
+        if (imageBase64) {
+            userImage.src = `data:image/jpeg;base64,${imageBase64}`;
+            saveImageBtn.classList.remove('d-none');
         }
     });
 
     saveImageBtn.addEventListener('click', async () => {
-        const fileInput = profileImageInput.files[0];
+        const fileInput = profileImageInput;  // Use the profileImageInput element directly
         if (await handleFileUpload(fileInput)) {
             saveImageBtn.classList.add('d-none');
         }
     });
+    
 
     const handleFileUpload = async (fileInput) => {
-        if (!fileInput) {
-            showUserMessage( 'No Image Selected ,Please select an image to upload!','error');
+        const file = fileInput.files[0];  // Get the file from the input
+        if (!file) {
+            showUserMessage('No Image Selected. Please select an image to upload!', 'error');
             return false;
         }
-
-        const allowedExtensions = ['image/jpeg', 'image/png'];
-        const maxSize = 2 * 1024 * 1024;
-
-        if (!allowedExtensions.includes(fileInput.type)) {
-            showUserMessage('Invalid Image Format, Allowed formats: JPEG, PNG.','error');
+    
+        const validation = validateImage(file, { maxSizeMB: 2, allowedTypes: ['image/jpeg', 'image/png'] });
+        if (!validation.success) {
+            showUserMessage(validation.message, 'error');
             return false;
         }
-
-        if (fileInput.size > maxSize) {
-            showUserMessage('File Too Large, Maximum allowed size is 2MB.','error');
-            return false;
-        }
-
-        const formData = new FormData();
-        formData.append('profile_image', fileInput);
-
-        try {
-            const response = await callApi('uploadProfileImage', formData);
-            if (response.success) {
-                showUserMessage('Your profile image has been updated successfully.','success');
-                return true;
-            } else {
-                showUserMessage(response.message || 'An error occurred during upload.','error');
-                return false;
-            }
-        } catch (error) {
-            console.error('Upload Error:', error);
-            showUserMessage('An error occurred while uploading the image.','error');
-            return false;
-        }
+    
+        const imageBase64 = await handleImageUpload(fileInput);  // Fix: Pass the event object (fileInput)
+        if (!imageBase64) return false;
+    
+        const profileData = {
+            user_id: userId,
+            first_name: editFirstNameElem.value,
+            last_name: editLastNameElem.value,
+            email: editEmailElem.value,
+            profile_image: imageBase64, // Send the base64 image
+        };
+    
+        return await updateUserProfile(profileData);
     };
-
+    
+    
+    // Fetch User Profile Logic
     const fetchUserProfile = async () => {
         try {
             const sessionResponse = await callApi('getUserSession', null);
@@ -92,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (profileResponse.success) {
                     const { first_name, last_name, email, profile_image } = profileResponse.data;
 
+                    // Populate the profile form
                     editFirstNameElem.value = first_name || '';
                     editLastNameElem.value = last_name || '';
                     editEmailElem.value = email || '';
@@ -106,13 +88,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    fetchUserProfile();
+    // Update Profile Logic
+    const updateUserProfile = async (profileData) => {
+        console.log(profileData);
 
+        try {
+            const response = await callApi('updateProfile', profileData);
+
+            if (response.success) {
+                showUserMessage('Your profile information has been updated.', 'success');
+                return true;
+            } else {
+                showUserMessage(response.message || 'Failed to update profile.', 'error');
+                return false;
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            showUserMessage('An error occurred while updating your profile.', 'error');
+            return false;
+        }
+    };
+
+    // Profile Form Submit Logic
     editProfileForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        // Validate email format
         if (!validateEmail(editEmailElem.value)) {
-            showUserMessage('Please enter a valid email address.','error');
+            showUserMessage('Please enter a valid email address.', 'error');
             return;
         }
 
@@ -123,22 +126,15 @@ document.addEventListener('DOMContentLoaded', () => {
             email: editEmailElem.value
         };
 
-        try {
-            const response = await callApi('updateProfile', profileData);
-
-            if (response.success) {
-                showUserMessage('Your profile information has been updated.','success');
-            } else {
-                showUserMessage( response.message || 'Failed to update profile.','error');
-            }
-        } catch (error) {
-            console.error('Error updating profile:', error);
-            showUserMessage('An error occurred while updating your profile.','error');
-        }
+        await updateUserProfile(profileData);
     });
 
+    // Email Validation
     function validateEmail(email) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     }
+
+    // Initial fetch of user profile
+    fetchUserProfile();
 });

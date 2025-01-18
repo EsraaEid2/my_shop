@@ -16,10 +16,6 @@ const apis = {
         "url": `${base_url}/update_user_data.php`,
         "method": "POST"
     },
-    "uploadProfileImage": {
-        "url": `${base_url}/upload_profile_image.php`,
-        "method": "POST"
-    },
     "logout": {
         "url": `${base_url}/destroy_user_session.php`,
         "method": "GET"
@@ -173,25 +169,20 @@ const defaultValidationOptions = {
     allowedTypes: ['image/jpeg', 'image/png'],
 };
 
-function validateImage(file, options = {}) {
-    if (!file) {
-        return { success: false, message: "No file provided." };
+function validateImage(file, { maxSizeMB, allowedTypes }) {
+    const maxSizeBytes = maxSizeMB * 1024 * 1024; // Convert MB to bytes
+    const fileSize = file.size;
+
+    if (fileSize > maxSizeBytes) {
+        return { success: false, message: 'File is too large. Maximum size allowed is ' + maxSizeMB + 'MB.' };
     }
 
-    const { maxSizeMB, allowedTypes } = { ...defaultValidationOptions, ...options };
-
-    // Check file size
-    const maxSizeBytes = maxSizeMB * 1024 * 1024;
-    if (file.size > maxSizeBytes) {
-        return { success: false, message: `File size exceeds ${maxSizeMB}MB.` };
+    const fileType = file.type;
+    if (!allowedTypes.includes(fileType)) {
+        return { success: false, message: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}` };
     }
 
-    // Check file type
-    if (!allowedTypes.includes(file.type)) {
-        return { success: false, message: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}.` };
-    }
-
-    return { success: true, message: "File is valid." };
+    return { success: true };
 }
 
 /**
@@ -307,4 +298,4 @@ async function callApi(apiName, data = null) {
 
 
 
-export { callApi, logMessage, showUserMessage, handleImageUpload ,toBase64};
+export { callApi, logMessage, showUserMessage, handleImageUpload ,validateImage};

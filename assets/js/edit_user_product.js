@@ -1,99 +1,107 @@
-import { callApi, toBase64 , showUserMessage } from './config.js';
+import { callApi, handleImageUpload, showUserMessage } from './config.js';
 
+document.addEventListener('DOMContentLoaded', () => {
+    const editProductForm = document.getElementById('editProductForm');
+
+    if (editProductForm) {
+        editProductForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            const productId = document.getElementById('edit-product-id').value; // Get product ID from hidden input field
+            editProductSubmit(productId); // Call the function to handle API submission
+        });
+    }
+});
+
+/**
+ * Populates the edit product form with product details and displays the modal.
+ * @param {number} productId - The ID of the product to fetch details for.
+ */
 function populateEditProductForm(productId) {
-    console.log(productId);
+    // Show the modal (Bootstrap)
+    const editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'));
+    editProductModal.show();
 
+    // Call the API to fetch product details
     callApi('getProductById', { product_id: productId })
         .then(response => {
             if (response.success) {
                 const product = response.data;
 
-                // Update the modal fields
-                document.getElementById('edit-product-id').value = productId; // Set hidden input
+                // Populate the form fields with the fetched product data
+                document.getElementById('edit-product-id').value = productId;
                 document.getElementById('edit-title').value = product.title;
                 document.getElementById('edit-description').value = product.description;
                 document.getElementById('edit-price').value = product.price;
                 document.getElementById('edit-stock_quantity').value = product.stock_quantity;
 
-                // Set the product image with the correct path
+                // Update the product image in the form
                 const productImage = document.getElementById('edit-product-image');
                 productImage.src = `http://localhost/my_shop/assets/img/product_images/${product.image_url}`;
                 productImage.alt = product.title;
             } else {
-                Swal.fire('Error', 'Failed to fetch product details: ' + response.message, 'error');
+                showUserMessage(response.message, 'error');
             }
         })
         .catch(error => {
             console.error('Error fetching product details:', error);
-            Swal.fire('Error', 'An error occurred while fetching product details.', 'error');
+            showUserMessage('An error occurred while fetching product details.', 'error');
         });
 }
 
-
-// Function to submit edited product data
+/**
+ * Submits the edited product data to the API.
+ * @param {number} productId - The ID of the product to update.
+ */
 async function editProductSubmit(productId) {
     const title = document.getElementById('edit-title').value;
     const description = document.getElementById('edit-description').value;
     const price = document.getElementById('edit-price').value;
     const stock_quantity = document.getElementById('edit-stock_quantity').value;
-    const image_file = document.getElementById('edit-image_url').files[0];
+    const imageInput = document.getElementById('edit-image_url');
+    const imageFile = imageInput.files[0];
 
+    // Validate required fields
     if (!title || !description || !price || !stock_quantity) {
         Swal.fire('Error', 'All fields are required.', 'error');
         return;
     }
 
+    // Handle image upload if a new image is provided
     let image_base64 = null;
-    if (image_file) {
-        if (image_file.size > 2 * 1024 * 1024) { // 2MB max size
-            Swal.fire('Error', 'The file size exceeds 2MB.', 'error');
-            return;
+    if (imageFile) {
+        const base64Image = await handleImageUpload({ target: imageInput });
+        if (!base64Image) {
+            return; // Stop if image validation failed
         }
-        image_base64 = await toBase64(image_file);
+        image_base64 = base64Image;
     }
 
+    // Prepare the payload for API submission
     const payload = {
         id: productId,
         title,
         description,
         price,
         stock_quantity,
-        image_base64,
+        image_base64, // Add Base64 image if updated
     };
 
+    // Call the API to update the product
     callApi('editUserProduct', payload)
         .then(response => {
             if (response.success) {
-                Swal.fire('Success', 'Product updated successfully!', 'success');
-                updateProductCard(productId, response.data);
+                showUserMessage('Product updated successfully!', 'success');
             } else {
-                Swal.fire('Error', 'Error updating product: ' + response.message, 'error');
+                showUserMessage(`Error updating product: ${response.message}`, 'error');
             }
         })
         .catch(error => {
             console.error('Error updating product:', error);
-            Swal.fire('Error', 'An error occurred while updating the product.', 'error');
+            showUserMessage('An error occurred while updating the product.', 'error');
         });
 }
 
-
-
-
-// Function to update the product card after editing
-function updateProductCard(productId, updatedProduct) {
-    const productCard = document.querySelector(`#product-${productId}`);
-
-    productCard.innerHTML = `
-        <img src="${updatedProduct.image_url}" alt="${updatedProduct.title}" class="product-image">
-        <div class="product-info">
-            <h3 class="product-title">${updatedProduct.title}</h3>
-            <p class="product-price">JOD ${updatedProduct.price}</p>
-            <button class="btn-edit" data-bs-toggle="modal" data-bs-target="#editProductModal" onclick="populateEditProductForm(${updatedProduct.id})">Edit</button>
-            <button class="btn-delete text-danger" onclick="deleteProduct(${updatedProduct.id})">Delete</button>
-        </div>
-    `;
-}
-
-// Attach to the global scope for access
+// Attach functions to the global scope for access
 window.populateEditProductForm = populateEditProductForm;
 window.editProductSubmit = editProductSubmit;
