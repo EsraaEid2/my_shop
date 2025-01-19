@@ -26,11 +26,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if ($result->num_rows > 0) {
             // Fetch user details
             $user = $result->fetch_assoc();
-            
-        // Set default profile image if not available
-        $user['profile_image'] = !empty($user['profile_image']) ? 'data:image/png;base64,' . $user['profile_image'] : 'assets/img/user_images/default_profile.png';
 
-            
+            // Check if profile_image is set or if it is the default path
+            if (empty($user['profile_image']) || $user['profile_image'] === '../assets/img/user_images/default_profile.png') {
+                // Set default profile image if not available
+                $user['profile_image'] = 'assets/img/user_images/default_profile.png';
+            } else {
+                // Adjust profile_image path to be relative (if needed)
+                if (strpos($user['profile_image'], 'assets/img/user_images/') === false) {
+                    $user['profile_image'] = 'assets/img/user_images/' . $user['profile_image'];
+                }
+                error_log("profile Image " . $user['profile_image']);
+            }
+
             // Return the user profile
             print_response(true, "User profile retrieved successfully.", $user);
         } else {

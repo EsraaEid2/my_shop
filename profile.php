@@ -12,6 +12,7 @@ require_once('controls/header.php');
         <div class="d-flex align-items-center">
             <!-- User Image & Edit Icon -->
             <div class="position-relative">
+                <!-- The profile image will be dynamically updated -->
                 <img src="assets/img/user_images/default_profile.png" alt="User Image" id="userImage"
                      class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
                 <div id="editImageIcon" class="position-absolute top-0 end-0 p-2 bg-white rounded-circle"
@@ -28,12 +29,6 @@ require_once('controls/header.php');
             </div>
         </div>
     </div>
-
-    <!-- Save Image Button -->
-    <div class="text-center mt-3">
-        <button id="saveImageBtn" class="btn btn-success d-none">Save Image</button>
-    </div>
-
     <!-- Edit Info Section -->
     <div class="mt-5">
         <h4 class="mb-4">Edit Your Information</h4>
@@ -58,6 +53,7 @@ require_once('controls/header.php');
 <?php 
 require_once('controls/footer.php');
 ?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/profile.js" type="module"></script>
 

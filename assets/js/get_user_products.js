@@ -1,4 +1,4 @@
-import { callApi } from './config.js';
+import { callApi,showUserMessage } from './config.js';
 import { displayProducts } from './display_products.js';
 
 // Function to fetch and display the user's products

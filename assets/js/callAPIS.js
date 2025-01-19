@@ -238,7 +238,6 @@ function getBase64Image($imagePath) {
 async function callApi(apiName, data = null) {
     if (!apis[apiName]) {
         logMessage(`API '${apiName}' not found.`, "error");
-        showUserMessage(`Error: API '${apiName}' not found.`, "error");
         return null;
     }
 
@@ -273,7 +272,6 @@ async function callApi(apiName, data = null) {
         const jsonStart = rawText.indexOf("{");
         if (jsonStart === -1) {
             logMessage(`Invalid response from '${apiName}': ${rawText}`, "error");
-            showUserMessage('Received an invalid response from the server.', "error");
             return null;
         }
 
@@ -281,17 +279,15 @@ async function callApi(apiName, data = null) {
         const jsonData = JSON.parse(jsonString);
 
         if (response.ok) {
-            showUserMessage(`API '${apiName}' executed successfully.`, "success");
+            logMessage(`API '${apiName}' executed successfully.`, "success");
             return jsonData;
         } else {
             const errorMsg = jsonData?.message || `Server returned status ${response.status}`;
             logMessage(`Error in API '${apiName}': ${errorMsg}`, "error");
-            showUserMessage(errorMsg, "error");
             return null;
         }
     } catch (networkError) {
         logMessage(`Network/API Error for '${apiName}': ${networkError}`, "error");
-        showUserMessage('Network issue or API is unavailable.', "error");
         return null;
     }
 }

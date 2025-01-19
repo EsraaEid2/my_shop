@@ -6,14 +6,9 @@ header('Content-Type: application/json');
 // Ensure no stray output
 ob_start();
 
-// Helper function to convert image to base64
-function getBase64Image($imagePath) {
-    $imageData = file_get_contents($imagePath);
-    return base64_encode($imageData);
-}
-
-// Default image path
-$defaultImagePath = '../assets/img/user_images/default_profile.png';
+// Default image path (using a unique name instead of the direct path)
+$defaultImageFileName = 'default_profile_' . uniqid() . '.png';
+$defaultImagePath = '../assets/img/user_images/' . $defaultImageFileName;
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -64,14 +59,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Register new user
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-        $defaultImageBase64 = getBase64Image($defaultImagePath);
 
-        // Fix: Properly bind the base64 image as a TEXT type
+        // Insert new user with the default image filename
         $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, profile_image, status) VALUES (?, ?, ?, ?, ?, 1)");
-        $stmt->bind_param("sssss", $first_name, $last_name, $email, $hashed_password, $defaultImageBase64);
+        $stmt->bind_param("sssss", $first_name, $last_name, $email, $hashed_password, $defaultImageFileName);
 
         if ($stmt->execute()) {
             $user_id = $stmt->insert_id;
+
+            // Handle the actual image file placement (copy the default image to the user directory)
+            $defaultImage = '../assets/img/user_images/default_profile.png';
+            if (file_exists($defaultImage)) {
+                // Make sure the directory exists
+                if (!is_dir('../assets/img/user_images/')) {
+                    mkdir('../assets/img/user_images/', 0777, true); // Create directory if it doesn't exist
+                }
+                
+                // Copy the default image to the new filename
+                copy($defaultImage, '../assets/img/user_images/' . $defaultImageFileName);
+            } else {
+                print_response(false, "Default profile image not found.");
+                exit();
+            }
 
             print_response(true, "User registered successfully.", [
                 "id" => $user_id,
