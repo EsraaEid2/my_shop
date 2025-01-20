@@ -1,11 +1,16 @@
 <?php 
+session_start();
 $title = "Cake Shop";
 require_once('controls/header.php'); 
 ?>
+     <!-- Hero Section -->
+     <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to Cake Shop</h1>
+            <p>Handcrafted cakes for your special moments</p>
+        </div>
+    </section>
 
-<main class="shop-container mt-5">
-    <h1>Welcome to My Shop</h1>
-</main>
 
 <?php 
 require_once('controls/footer.php');

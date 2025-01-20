@@ -1,14 +1,16 @@
 <?php
 
-require_once('config.php');
-
+require_once('config.php'); // Include database configuration and connection
 header('Content-Type: application/json');
 
+// Start session
+session_start();
+
 // Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Get input data from POST
-    $data = json_decode(file_get_contents('php://input'), true); // associative array key->value
+    $data = json_decode(file_get_contents('php://input'), true); // Associative array key->value
     $email = $data['email'] ?? null;
     $password = $data['password'] ?? null;
 
@@ -34,13 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($status == 1) {
                 // Verify password
                 if (password_verify($password, $hashed_password)) {
-                    // If password matches, return user data (without password)
+                    // If password matches, set session and return user data
+                    $_SESSION['user_id'] = $id; // Store user ID in the session
+                    $_SESSION['user_name'] = $first_name . ' ' . $last_name; // Store full name in the session
+
                     $user = [
                         "id" => $id,
                         "first_name" => $first_name,
                         "last_name" => $last_name,
                         "email" => $email
                     ];
+
                     $stmt->close();
                     print_response(true, "Login successful.", $user);
                 } else {

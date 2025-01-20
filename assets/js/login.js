@@ -28,20 +28,12 @@ form.addEventListener('submit', async (e) => {
         const loginResponse = await callApi('login', formData);
 
         if (loginResponse.success) {
-            const { id } = loginResponse.data;
             showUserMessage('Login successful! Redirecting...', 'success');
 
-            // Set the user session
-            const sessionResponse = await callApi('setUserSession', { id });
-
-            if (sessionResponse && sessionResponse.success) {
-                // Redirect to the user profile page after a slight delay
-                setTimeout(() => {
-                    window.location.href = '/my_shop/shop.php';
-                }, 2000);
-            } else {
-                showUserMessage('Failed to set session. Please try again.', 'error');
-            }
+            // Redirect to the user profile page after a slight delay
+            setTimeout(() => {
+                window.location.href = '/my_shop/shop.php';
+            }, 2000);
         } else {
             // Invalid credentials or any other failure in the login process
             showUserMessage(loginResponse.message || 'Invalid credentials.', 'error');

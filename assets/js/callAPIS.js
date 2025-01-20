@@ -56,6 +56,18 @@ const apis = {
         "url": `${base_url}/delete_user_product.php`,
         "method": "POST"
     },
+    "addToWishlist": {
+        "url": `${base_url}/add_to_wishlist.php`,
+        "method": "POST"
+    },
+    "getUserWishlist": {
+        "url": `${base_url}/get_user_wishlist.php`,
+        "method":"GET"
+    },
+    "deleteFromWishlist": {
+        "url": `${base_url}/delete_from_wishlist.php`,
+        "method": "POST"
+    },
 };
 
 /* Custom logging Function

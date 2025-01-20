@@ -1,30 +1,52 @@
 :root {
     /* Colors */
-    --primary-color: rgb(200, 144, 167);
-    /* Lavender */
-    --primary-hover-color: rgb(180, 124, 147);
-    /* Darker lavender for hover effects */
-    --secondary-color: #f9f9f9;
-    /* Soft white background */
-    --text-color: #333333;
-    /* Dark gray text */
-    --accent-color: #ffd1dc;
-    /* Light pink for accents */
-    --light-yellow: #fff8e1;
-    /* Optional secondary accent */
-
-    /* Font */
-    --primary-font: 'Pacifico', cursive;
-    /* Decorative font */
-    --secondary-font: 'Open Sans', sans-serif;
-    /* Clean, readable font */
+    --primary-color: #E5A2B3;         /* Softer rose pink - more bakery-like */
+    --primary-hover-color: #D48A9D;   /* Darker rose for hover */
+    --secondary-color: #FFF9F9;       /* Warmer white background */
+    --text-color: #4A4A4A;           /* Softer black for better readability */
+    --accent-color: #F8E3EA;         /* Lighter pink for subtle accents */
+    --light-yellow: #FFF3D6;         /* Warmer yellow - like vanilla cake */
+    --success-color: #97C1A9;        /* Soft green for success messages */
+    --error-color: #FFB5B5;          /* Soft red for error messages */
+    
+    /* Font Families */
+    --primary-font: 'Playfair Display', serif;    /* More elegant decorative font */
+    --secondary-font: 'Lato', sans-serif;         /* Modern, highly readable font */
+    
+    /* Base Sizes */
     --base-font-size: 16px;
-
-    /* Typography Sizes */
-    --h1-size: 2.5rem;
-    --h2-size: 2rem;
-    --h3-size: 1.75rem;
+    --base-spacing: 1rem;
+    
+    /* Typography Scale (using a 1.25 ratio) */
+    --h1-size: 3rem;
+    --h2-size: 2.4rem;
+    --h3-size: 1.92rem;
+    --h4-size: 1.44rem;
     --body-font-size: var(--base-font-size);
+    --small-text: 0.875rem;
+    
+    /* Spacing */
+    --spacing-xs: calc(var(--base-spacing) * 0.25);  /* 4px */
+    --spacing-sm: calc(var(--base-spacing) * 0.5);   /* 8px */
+    --spacing-md: var(--base-spacing);               /* 16px */
+    --spacing-lg: calc(var(--base-spacing) * 1.5);   /* 24px */
+    --spacing-xl: calc(var(--base-spacing) * 2);     /* 32px */
+    
+    /* Border Radius */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -209,6 +231,32 @@ a:hover {
     margin-right: 0.5rem;
 }
 
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.5),  /* Adjust opacity here (0.5 = 50% black overlay) */
+        rgba(0, 0, 0, 0.5)
+    ), url(../img/home_images/slider.png);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--secondary-color);
+    padding-top: 80px;
+}
+
+.hero-content h1 {
+    font-family: var(--primary-font);
+    font-size: 3.5rem; /* Custom size */
+    margin-bottom: var(--spacing-sm);
+}
+.hero-content p{
+    color:#fff;
+}
+
 /* Login button */
 #login-link {
     font-family: var(--secondary-font);
@@ -236,9 +284,12 @@ a:hover {
     padding: 8px 15px;
 }
 
+/* Footer */
 .footer {
     background-color: var(--primary-color);
-    color: var(--secondary-color);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
 }
 
 .footer a {
@@ -685,4 +736,70 @@ button {
 
 .add-to-cart-btn:active {
     transform: scale(0.98);
+}
+
+.wishlist {
+    padding: 40px 0;
+    background-color: var(--secondary-color);
+}
+
+.wishlist h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.wishlist-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.wishlist-item {
+    background-color: var(--light-yellow);
+    padding: 15px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wishlist-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.wishlist-item h3 {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-top: 10px;
+}
+
+.wishlist-item .price {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin: 10px 0;
+}
+
+.wishlist-item .btn-remove {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.wishlist-item .btn-remove:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.wishlist-item p {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-top: 20px;
 }
