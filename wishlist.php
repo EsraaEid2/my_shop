@@ -4,12 +4,12 @@ $title = "Cake Shop | Wishlist";
 require_once('controls/header.php'); 
 ?>
 
-<!-- Wishlist Section -->
 <section class="wishlist">
-    <div class="container">
+    <div class="wishlist-container">
         <h2>Your Wishlist</h2>
         <div class="wishlist-items" id="wishlist-items">
-            <!-- Wishlist items will be populated dynamically here by JavaScript -->
+            <!-- Example of recommended card structure -->
+
         </div>
     </div>
 </section>

@@ -1,5 +1,4 @@
-// Import necessary functions from config.js
-import { callApi, showUserMessage } from './config.js';
+// Assuming `userId` is available globally (from the inline PHP script above)
 
 document.addEventListener('DOMContentLoaded', () => {
     const wishlistIcons = document.querySelectorAll('.favorite-icon');
@@ -8,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.addEventListener('click', async (event) => {
             event.preventDefault();
 
-            const productId = event.target.dataset.productId;
+            const productId = event.target.dataset.productId; // Get product ID from the data attribute
             console.log('[DEBUG] Clicked Product ID:', productId);
 
             if (!productId) {
@@ -16,37 +15,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            if (!userId) {
+                showUserMessage('User must be logged in to add to wishlist.', 'error');
+                return;
+            }
+
             try {
-                // Step 1: Retrieve the user session
-                const sessionResponse = await callApi('getUserSession');
-
-                if (!sessionResponse || !sessionResponse.success) {
-                    console.error('[DEBUG] Failed to retrieve user session:', sessionResponse);
-                    showUserMessage('You must be logged in to add products to your wishlist.', 'error');
-                    return;
-                }
-
-                const userId = sessionResponse.data?.user_id;
-                console.log('[DEBUG] Retrieved User ID from Session:', userId);
-
-                if (!userId) {
-                    showUserMessage('Unable to retrieve user session. Please log in again.', 'error');
-                    return;
-                }
-
-                // Step 2: Prepare data for addToWishlist API
+                // Prepare the payload (including product_id and user_id)
                 const formData = {
-                    user_id: userId,
                     product_id: productId,
+                    user_id: userId,  // Include the user_id from the session
                 };
 
                 console.log('[DEBUG] Payload for addToWishlist:', formData);
 
-                // Step 3: Call addToWishlist API
+                // Call addToWishlist API
                 const response = await callApi('addToWishlist', formData);
 
                 if (response && response.success) {
-                    event.target.innerHTML = '&#10084;'; // Filled heart icon
+                    event.target.innerHTML = '&#10084;'; // Update the icon to a filled heart
                     showUserMessage('Product added to wishlist!', 'success');
                 } else {
                     console.error('[DEBUG] Failed to add to wishlist:', response);

@@ -1,6 +1,9 @@
 <?php 
 require_once('config.php');
 
+// Start the session to access session variables (e.g., user_id)
+session_start();
+
 header('Content-Type: application/json');
 
 // Check if the request method is POST
@@ -11,26 +14,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Validate the data
     $productId = $data['product_id'] ?? null;
-    $userId = $data['user_id'] ?? null;
-        // Log the received data (for debugging)
-        error_log("Received product_id: $productId, user_id: $userId");
-
-    if (!$productId || !$userId) {
-        print_response(false, 'User ID and Product ID are required');
-        exit();
-    }
 
     // Log the received data (for debugging)
-    error_log("Received product_id: $productId, user_id: $userId");
+    error_log("Received product_id: $productId");
+
+    if (!$productId) {
+        print_response(false, 'Product ID is required');
+        exit();
+    }
 
     // Validate product ID
     if (empty($productId) || !is_numeric($productId)) {
         print_response(false, 'Invalid product ID');
         exit();
     }
-    // Validate user ID
-    if (empty($userId) || !is_numeric($userId)) {
-        print_response(false, 'Invalid user ID');
+
+    // Get user ID from session (this should be handled in the front-end as well)
+    $userId = $_SESSION['user_id'] ?? null;
+
+    // Log the received data (for debugging)
+    error_log("User ID from session: " . $userId); // Corrected the logging statement
+
+    if (!$userId) {
+        print_response(false, 'User must be logged in to add a product to the wishlist');
         exit();
     }
 
@@ -74,3 +80,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Return error if method is not POST
     print_response(false, 'Invalid request method');
 }
+?>

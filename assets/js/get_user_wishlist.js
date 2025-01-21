@@ -48,11 +48,11 @@ const displayProducts = (products) => {
     productsContainer.innerHTML = ''; // Clear existing content
 
     products.forEach(product => {
-        const productCard = document.createElement('div');
+        const productCard = document.createElement('article');
         productCard.classList.add('wishlist-item');
 
         productCard.innerHTML = `
-        <img src="${product.image_url}" alt="${product.title}" class="product-image">
+        <img src="${product.image_url}" alt="${product.title}" class="product-image" loading="lazy">
         <div class="product-info">
             <h3 class="product-title">${product.title}</h3>
             <p class="product-price">JOD ${product.price}</p>

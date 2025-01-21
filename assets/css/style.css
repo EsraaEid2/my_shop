@@ -217,7 +217,7 @@ a:hover {
 }
 
 .navbar-nav .dropdown-item {
-    color: var(--secondary-color);
+    color: var(--secondary-color) !important;
     font-size: 0.9rem;
 }
 
@@ -420,85 +420,20 @@ button {
     font-weight: bold;
 }
 
-/* Toast Message Styles Start */
-.toast {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 9999;
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    animation: fadeInOut 5s ease;
-    font-family: var(--secondary-font);
-    font-size: var(--body-font-size);
-    color: var(--secondary-color);
-}
-
-.toast-success {
-    background-color: #28a745;
-}
-
-.toast-danger {
-    background-color: #dc3545;
-}
-
-.toast-warning {
-    background-color: #ffc107;
-    color: #212529;
-}
-
-.toast-info {
-    background-color: #17a2b8;
-}
-
-.toast .toast-progress {
-    height: 4px;
-    background: rgba(255, 255, 255, 0.8);
-    animation: progressBar 5s linear;
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    10%,
-    90% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-}
-
-@keyframes progressBar {
-    from {
-        width: 100%;
-    }
-    to {
-        width: 0;
-    }
-}
-
-/* Toast Message Styles End */
-
-/* CSS Styles */
+/* User Message Box Styles Start */
 #user-message-box {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    padding: 16px 24px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    color: #fff;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg);
+    color: var(--secondary-color);
     z-index: 9999;
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 16px;
+    font-family: var(--secondary-font);
+    font-size: var(--body-font-size);
     min-width: 300px;
     max-width: 80vw;
     display: flex;
@@ -508,51 +443,50 @@ button {
 
 /* Position variants */
 #user-message-box.top {
-    top: -100px;
+    top: calc(-1 * var(--spacing-xl) * 3);
 }
 
 #user-message-box.bottom {
-    bottom: -100px;
+    bottom: calc(-1 * var(--spacing-xl) * 3);
 }
 
 #user-message-box.visible.top {
-    top: 24px;
+    top: var(--spacing-lg);
     opacity: 1;
 }
 
 #user-message-box.visible.bottom {
-    bottom: 24px;
+    bottom: var(--spacing-lg);
     opacity: 1;
 }
 
-/* Enhanced colors with gradients */
 #user-message-box.success {
-    background: linear-gradient(135deg, #28a745, #20c997);
-    border-left: 4px solid #1e7e34;
+    background: linear-gradient(135deg, var(--success-color), #20c997);
+    border-left: 4px solid var(--success-color);
 }
 
 #user-message-box.error {
-    background: linear-gradient(135deg, #dc3545, #ff4d4d);
-    border-left: 4px solid #bd2130;
+    background: linear-gradient(135deg, var(--error-color), #ff4d4d);
+    border-left: 4px solid var(--error-color);
 }
 
 #user-message-box.warning {
-    background: linear-gradient(135deg, #ffc107, #ffb700);
-    border-left: 4px solid #d39e00;
-    color: #000;
+    background: linear-gradient(135deg, var(--light-yellow), #ffb700);
+    border-left: 4px solid var(--light-yellow);
+    color: var(--text-color);
 }
 
 #user-message-box.info {
-    background: linear-gradient(135deg, #007bff, #17a2b8);
-    border-left: 4px solid #0056b3;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover-color));
+    border-left: 4px solid var(--primary-color);
 }
 
 /* Content layout */
 .message-content {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-right: 24px;
+    gap: var(--spacing-sm);
+    margin-right: var(--spacing-lg);
 }
 
 .message-text {
@@ -564,20 +498,20 @@ button {
 
 /* Icon styles */
 .material-symbols-rounded {
-    font-size: 24px;
+    font-size: var(--h4-size);
 }
 
 /* Close button */
 .close-btn {
     position: absolute;
-    right: 8px;
+    right: var(--spacing-xs);
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     color: inherit;
     cursor: pointer;
-    padding: 4px;
+    padding: var(--spacing-xs);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -591,7 +525,7 @@ button {
 }
 
 .close-btn .material-symbols-rounded {
-    font-size: 20px;
+    font-size: var(--body-font-size);
 }
 
 /* Progress bar */
@@ -618,26 +552,27 @@ button {
 #user-message-box:hover .progress-bar::after {
     opacity: 0.8;
 }
+
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
     #user-message-box {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        box-shadow: var(--shadow-lg);
     }
 }
 
-@media (max-width: 576px) {
-    .container {
-        padding: 1rem;
+/* Responsive adjustments */
+@media screen and (max-width: 576px) {
+    #user-message-box {
+        min-width: 90vw;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .message-text {
+        font-size: var(--small-text);
     }
 }
 
-.products-container {
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: var(--secondary-color);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+/* User Message Box Styles End */
 
 .modal-content {
     border-radius: 10px;
@@ -669,19 +604,27 @@ button {
     background-color: var(--primary-color);
 }
 
-/* Styling for product cards container */
+/* Shop Page Styles Start */
+.products-container {
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--secondary-color);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
 .product-cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px 0;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md) 0;
 }
 
 /* Styling for individual product cards */
 .product-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
     overflow: hidden;
     transition: transform 0.3s ease;
 }
@@ -695,111 +638,143 @@ button {
     width: 100%;
     height: 200px;
     object-fit: contain;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid var(--accent-color);
 }
 
 /* Product information styling */
 .product-info {
-    padding: 15px;
+    padding: var(--spacing-md);
 }
 
 .product-title {
-    font-size: 1.2rem;
+    font-size: var(--h4-size);
+    font-family: var(--primary-font);
     font-weight: bold;
-    color: #333;
-    margin: 10px 0;
+    color: var(--text-color);
+    margin: var(--spacing-sm) 0;
     text-align: center;
 }
 
 .product-price {
-    font-size: 1.1rem;
-    color: #e67e22;
+    font-size: var(--body-font-size);
+    color: var(--primary-color);
     text-align: center;
+    font-family: var(--secondary-font);
 }
 
-/* Button for adding to cart (if needed) */
-.add-to-cart-btn {
-    background-color: #e67e22;
-    color: white;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.add-to-cart-btn:hover {
-    background-color: #d35400;
-}
-
-.add-to-cart-btn:active {
-    transform: scale(0.98);
-}
-
+/* Wishlist Section */
 .wishlist {
-    padding: 40px 0;
+    padding: var(--spacing-xl) 0;
     background-color: var(--secondary-color);
 }
 
+.wishlist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    width: 100%;
+}
+
 .wishlist h2 {
+    font-family: var(--primary-font);
     text-align: center;
     color: var(--primary-color);
-    margin-bottom: 20px;
-    font-size: 2rem;
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--h2-size);
 }
 
+/* Wishlist Grid Container */
 .wishlist-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
 }
 
+/* Individual Wishlist Card */
 .wishlist-item {
     background-color: var(--light-yellow);
-    padding: 15px;
-    border-radius: 8px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    box-shadow: var(--shadow-md);
 }
 
+/* Product Image Container */
 .wishlist-item img {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: var(--border-radius-sm);
 }
 
+/* Product Title */
 .wishlist-item h3 {
-    font-size: 1.2rem;
+    font-family: var(--primary-font);
+    font-size: var(--h4-size);
     color: var(--text-color);
-    margin-top: 10px;
+    margin: var(--spacing-sm) 0;
 }
 
+/* Price Display */
 .wishlist-item .price {
-    font-size: 1rem;
+    font-family: var(--secondary-font);
+    font-size: var(--body-font-size);
     color: var(--primary-color);
-    margin: 10px 0;
+    font-weight: bold;
+    margin: var(--spacing-xs) 0;
 }
 
+/* Remove Button */
 .wishlist-item .btn-remove {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--secondary-color);
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: var(--secondary-font);
+    font-size: var(--small-text);
+    margin-top: auto; /* Pushes button to bottom of card */
 }
 
 .wishlist-item .btn-remove:hover {
     background-color: var(--primary-hover-color);
 }
 
+/* Description Text */
 .wishlist-item p {
+    font-family: var(--secondary-font);
     color: var(--text-color);
-    font-size: 1rem;
-    margin-top: 20px;
+    font-size: var(--small-text);
+    margin-top: var(--spacing-sm);
+}
+
+/* Responsive container adjustments */
+@media screen and (max-width: 1240px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .container {
+        max-width: 720px;
+        padding: 0 var(--spacing-md);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
 }

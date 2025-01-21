@@ -849,3 +849,117 @@ c[20-Jan-2025 10:30:09 Europe/Berlin] Received product_id: 49, user_id:
 [20-Jan-2025 14:45:08 Europe/Berlin] Received product_id: 60, user_id: 93
 [20-Jan-2025 14:45:11 Europe/Berlin] Received user ID: 93
 [20-Jan-2025 14:45:28 Europe/Berlin] Received product_id: 49, user_id: 
+[21-Jan-2025 07:11:35 Europe/Berlin] Received product_id: 50, user_id: 
+[21-Jan-2025 07:11:46 Europe/Berlin] profile Image /my_shop/assets/img/user_images/profile_678e23ef7214d.jpg
+[21-Jan-2025 07:12:01 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:12:10 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:12:16 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:26:52 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:38:04 Europe/Berlin] Received product_id: 60, user_id: 93
+[21-Jan-2025 07:38:04 Europe/Berlin] Received product_id: 60, user_id: 93
+[21-Jan-2025 07:38:15 Europe/Berlin] Received product_id: 58, user_id: 93
+[21-Jan-2025 07:38:15 Europe/Berlin] Received product_id: 58, user_id: 93
+[21-Jan-2025 07:38:20 Europe/Berlin] Received product_id: 52, user_id: 93
+[21-Jan-2025 07:38:20 Europe/Berlin] Received product_id: 52, user_id: 93
+[21-Jan-2025 07:38:24 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:41:24 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:43:10 Europe/Berlin] Received product_id: 52, user_id: 93
+[21-Jan-2025 07:43:10 Europe/Berlin] Received product_id: 52, user_id: 93
+[21-Jan-2025 07:43:16 Europe/Berlin] Received product_id: 58, user_id: 93
+[21-Jan-2025 07:43:16 Europe/Berlin] Received product_id: 58, user_id: 93
+[21-Jan-2025 07:43:20 Europe/Berlin] Received product_id: 60, user_id: 93
+[21-Jan-2025 07:43:20 Europe/Berlin] Received product_id: 60, user_id: 93
+[21-Jan-2025 07:43:25 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:43:25 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:43:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:43:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:43:32 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:44:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:44:32 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:44:35 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:46:11 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:46:11 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:46:13 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:46:13 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:46:13 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:46:19 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:46:19 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:46:43 Europe/Berlin] Received product_id: 60, user_id: 93
+[21-Jan-2025 07:46:43 Europe/Berlin] Received product_id: 60, user_id: 93
+[21-Jan-2025 07:46:45 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:46:45 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:46:46 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\my_shop\api\config.php on line 5
+[21-Jan-2025 07:49:03 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:50:11 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:50:14 Europe/Berlin] Received product_id: 60, user_id: 93
+[21-Jan-2025 07:50:14 Europe/Berlin] Received product_id: 60, user_id: 93
+[21-Jan-2025 07:50:21 Europe/Berlin] Received product_id: 58, user_id: 93
+[21-Jan-2025 07:50:21 Europe/Berlin] Received product_id: 58, user_id: 93
+[21-Jan-2025 07:50:23 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 07:50:26 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:00:07 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:00:10 Europe/Berlin] Received product_id: 48
+[21-Jan-2025 08:00:27 Europe/Berlin] Received product_id: 49
+[21-Jan-2025 08:04:23 Europe/Berlin] Received product_id: 48
+[21-Jan-2025 08:04:33 Europe/Berlin] Received product_id: 58
+[21-Jan-2025 08:04:41 Europe/Berlin] Received product_id: 58
+[21-Jan-2025 08:05:16 Europe/Berlin] Received product_id: 48
+[21-Jan-2025 08:06:19 Europe/Berlin] Received product_id: 49
+[21-Jan-2025 08:06:19 Europe/Berlin] esraa 
+[21-Jan-2025 08:10:07 Europe/Berlin] Received product_id: 48
+[21-Jan-2025 08:10:07 Europe/Berlin] User ID from session: 
+[21-Jan-2025 08:16:08 Europe/Berlin] Received product_id: 48
+[21-Jan-2025 08:16:08 Europe/Berlin] User ID from session: 
+[21-Jan-2025 08:17:50 Europe/Berlin] PHP Fatal error:  Cannot redeclare print_response() (previously declared in C:\xampp\htdocs\my_shop\api\add_to_wishlist.php:85) in C:\xampp\htdocs\my_shop\controls\api_response.php on line 25
+[21-Jan-2025 08:18:07 Europe/Berlin] Received product_id: 48
+[21-Jan-2025 08:18:07 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:18:55 Europe/Berlin] Received product_id: 49
+[21-Jan-2025 08:18:55 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:19:22 Europe/Berlin] Received product_id: 48
+[21-Jan-2025 08:19:22 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:19:29 Europe/Berlin] Received product_id: 47
+[21-Jan-2025 08:19:29 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:19:51 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:19:57 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:20:01 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:21:49 Europe/Berlin] profile Image /my_shop/assets/img/user_images/profile_678e23ef7214d.jpg
+[21-Jan-2025 08:22:06 Europe/Berlin] profile Image /my_shop/assets/img/user_images/profile_678f4b1a54773.jpg
+[21-Jan-2025 08:22:16 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:29:01 Europe/Berlin] Received product_id: 58
+[21-Jan-2025 08:29:01 Europe/Berlin] User ID from session: 
+[21-Jan-2025 08:29:19 Europe/Berlin] Received product_id: 60
+[21-Jan-2025 08:29:19 Europe/Berlin] User ID from session: 
+[21-Jan-2025 08:33:01 Europe/Berlin] Received product_id: 60
+[21-Jan-2025 08:33:01 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:33:07 Europe/Berlin] Received product_id: 85
+[21-Jan-2025 08:33:07 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:33:12 Europe/Berlin] Received product_id: 58
+[21-Jan-2025 08:33:12 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:53:56 Europe/Berlin] Received product_id: 48
+[21-Jan-2025 08:53:56 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:54:02 Europe/Berlin] Received product_id: 51
+[21-Jan-2025 08:54:02 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 08:54:32 Europe/Berlin] profile Image /my_shop/assets/img/user_images/profile_678f4b1a54773.jpg
+[21-Jan-2025 08:54:41 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:56:53 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:57:44 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 08:59:38 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:01:24 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:02:08 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:03:06 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:05:58 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:08:24 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:14:53 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:14:59 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:15:05 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:15:14 Europe/Berlin] Received product_id: 49
+[21-Jan-2025 09:15:14 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 09:15:18 Europe/Berlin] profile Image /my_shop/assets/img/user_images/profile_678f4b1a54773.jpg
+[21-Jan-2025 09:15:23 Europe/Berlin] Received user ID: 93
+[21-Jan-2025 09:15:32 Europe/Berlin] Received product_id: 59
+[21-Jan-2025 09:15:32 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 09:15:39 Europe/Berlin] Received product_id: 49
+[21-Jan-2025 09:15:39 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 09:15:43 Europe/Berlin] Received product_id: 60
+[21-Jan-2025 09:15:43 Europe/Berlin] User ID from session: 93
+[21-Jan-2025 09:15:50 Europe/Berlin] Received user ID: 93
